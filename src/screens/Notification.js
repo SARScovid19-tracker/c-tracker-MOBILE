@@ -91,7 +91,7 @@ async function sendPushNotification(expoPushToken) {
     } else {
       alert('Must use physical device for Push Notifications');
     }
-  
+
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',
@@ -100,6 +100,6 @@ async function sendPushNotification(expoPushToken) {
         lightColor: '#FF231F7C',
       });
     }
-  
+
     return token;
   }
