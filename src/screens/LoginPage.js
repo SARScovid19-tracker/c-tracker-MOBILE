@@ -10,14 +10,26 @@ import {
 } from 'react-native'
 
 const styles = StyleSheet.create({
+  containerLogo: {
+    padding: 20,
+    marginHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }, 
   container: {
     paddingTop: 5,
     justifyContent: 'center',
+<<<<<<< HEAD
     alignItems: 'center'
+=======
+    alignItems: 'center',
+    // backgroundColor: 'blue'
+>>>>>>> 04ba89063e1954bbee99acb8bfd2013c0c4a3636
   },
   img: {
-    height: 200,
-    width: 200
+    width: 200,
+    height: 50,
+    resizeMode: 'contain'
   },
   imgNormal: {
     paddingTop: 0,
@@ -43,18 +55,32 @@ const styles = StyleSheet.create({
 })
 
 export default function LoginPage({ navigation }) {
+<<<<<<< HEAD
   function submit() {
     navigation.navigate('Verify')
   }
   function toRegister() {
+=======
+
+  // function submit(){
+  //  navigation.navigate('Verify')
+  // }
+  function toRegister(){
+>>>>>>> 04ba89063e1954bbee99acb8bfd2013c0c4a3636
     navigation.navigate('RegisterPage')
   }
   return (
     <>
+<<<<<<< HEAD
       <View style={styles.container}>
         <Image
           style={styles.img}
           source={require('../../assets/logo-removebg-preview.png')}
+=======
+      <View style={styles.containerLogo}>
+        <Image style={styles.img}
+          source={require('../../assets/logo-removebg-preview-trimmed.png')}
+>>>>>>> 04ba89063e1954bbee99acb8bfd2013c0c4a3636
         />
         {/* <Image style={styles.imgNormal}
         source={require('../../assets/new-normal.jpg')}

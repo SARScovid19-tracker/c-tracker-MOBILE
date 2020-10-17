@@ -15,8 +15,13 @@
     "@react-navigation/stack": "^5.9.3",
     "axios": "^0.20.0",
     "expo": "~39.0.2",
+<<<<<<< HEAD
     "expo-barcode-scanner": "~9.0.0",
     "expo-permissions": "~9.3.0",
+=======
+    "expo-notifications": "^0.7.2",
+    "expo-permissions": "^9.3.0",
+>>>>>>> 04ba89063e1954bbee99acb8bfd2013c0c4a3636
     "expo-status-bar": "~1.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
