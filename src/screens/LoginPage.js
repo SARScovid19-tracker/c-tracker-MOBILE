@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
 
 export default function LoginPage({ navigation }) {
 
-  function submit(){
-   navigation.navigate('Verify')
-  }
+  // function submit(){
+  //  navigation.navigate('Verify')
+  // }
   function toRegister(){
     navigation.navigate('RegisterPage')
    }

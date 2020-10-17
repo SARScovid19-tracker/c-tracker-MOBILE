@@ -4,12 +4,8 @@ import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import store from './src/store'
-import HomePage from './src/screens/HomePage'
-import LoginPage from './src/screens/LoginPage'
-import RegisterPage from './src/screens/RegisterPage'
-import VerifyPage from './src/screens/VerifyPage'
-import HistoryPage from './src/screens/HomePage'
-import TestPage from './src/screens/TestPage'
+import { HomePage, HistoryPage, LoginPage, RegisterPage,
+TestPage, VerifyPage } from './src/screens/index'
 
 export default function App() {
   const Stack = createStackNavigator()
