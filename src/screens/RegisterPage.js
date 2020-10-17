@@ -1,41 +1,5 @@
-<<<<<<< HEAD
 import React from 'react'
 import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, Button } from 'react-native'
-
-
-export default function RegisterPage() {
-
-  const styles = StyleSheet.create({
-    container: {
-      paddingTop: 5,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    img: {
-      height: 200,
-      width: 200
-    },
-    imgNormal: {
-      paddingTop: 0,
-      height: 200,
-      width: 200
-    },
-    inputField: {
-      width: 280,
-      color: 'white',
-      borderColor: 'white',
-      marginTop: 5
-    },
-    Wrapper: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      // backgroundColor: '#1F3A93'
-    },
-    text: {
-      color: 'blue',
-      fontSize: 23
-=======
 import Constants from 'expo-constants';
 import React, { useState, useEffect, useRef } from 'react'
 import { View, Image, StyleSheet, Text, TextInput,Button, Alert, TouchableOpacity } from 'react-native'
@@ -93,10 +57,9 @@ export default function RegisterPage({ navigation }) {
       }else if ( nik > 7 || nik < 7 ) {
         Alert.alert('Input your first six number NIK')
       }
->>>>>>> 04ba89063e1954bbee99acb8bfd2013c0c4a3636
     }
-   
-   }
+
+}
 
   return (
     <>
@@ -113,7 +76,7 @@ export default function RegisterPage({ navigation }) {
           Name
       </Text>
         <TextInput
-         onChangeText={(text) => setName(text)}
+          onChangeText={(text) => setName(text)}
           underlineColorAndroid='black'
           placeholderTextColor='black'
           keyboardType='email-address'
@@ -152,7 +115,6 @@ export default function RegisterPage({ navigation }) {
 
         <View >
           <Button onPress={(event) => submitRegister( event )} title="Register" mode="outlined" dark={true}>
-            
             {/* berhasil ke login , kalo belum muncul validasi */}
           </Button>
         </View>
