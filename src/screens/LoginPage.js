@@ -2,14 +2,22 @@ import React, { useState } from 'react'
 import { View, Image, StyleSheet, Text, TextInput,Button, TouchableOpacity } from 'react-native'
 
 const styles = StyleSheet.create({
+  containerLogo: {
+    padding: 20,
+    marginHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }, 
   container: {
     paddingTop: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor: 'blue'
   },
   img: {
-    height: 200,
-    width: 200
+    width: 200,
+    height: 50,
+    resizeMode: 'contain'
   },
   imgNormal: {
     paddingTop: 0,
@@ -44,9 +52,9 @@ export default function LoginPage({ navigation }) {
    }
   return (
     <>
-      <View style={styles.container}>
+      <View style={styles.containerLogo}>
         <Image style={styles.img}
-          source={require('../../assets/logo-removebg-preview.png')}
+          source={require('../../assets/logo-removebg-preview-trimmed.png')}
         />
         {/* <Image style={styles.imgNormal}
         source={require('../../assets/new-normal.jpg')}
