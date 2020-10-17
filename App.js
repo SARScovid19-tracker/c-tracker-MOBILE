@@ -4,14 +4,13 @@ import { Text, View } from 'react-native';
 import { Provider } from 'react-redux'
 import store from './src/store'
 import { styles } from './src/styles/styles'
+import QrCodeScanner from './src/screens/QRCodeTest'
 
 export default function App() {
   return (
   <Provider store={store}>
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <QrCodeScanner />
       <StatusBar style="auto" />
-    </View>
   </Provider>
   );
 }
