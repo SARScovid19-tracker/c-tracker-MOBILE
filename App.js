@@ -1,29 +1,38 @@
 import React from 'react'
 import { NavigationContainer, StackActions } from '@react-navigation/native'
+import { StatusBar } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import store from './src/store'
-import { styles } from './src/styles/styles'
-import QrCodeScanner from './src/screens/QRCodeTest'
+import { mainColor } from './src/styles/styles'
 import {
   HomePage,
   LoginPage,
   RegisterPage,
   VerifyPage,
-  HistoryPage,
-  TestPage
 } from './src/screens'
 
 export default function App() {
   const Stack = createStackNavigator()
   return (
     <Provider store={store}>
+      <StatusBar barStyle="dark-content" backgroundColor={ mainColor.second } />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: mainColor.third
+            },
+            headerTintColor: mainColor.second,
+          }}
+        >
           <Stack.Screen
             name="LoginPage"
             component={LoginPage}
-            options={{ title: 'Login' }}
+            options={{
+              title: 'Login',
+              headerShown: false
+            }}
           />
 
           <Stack.Screen
@@ -33,7 +42,7 @@ export default function App() {
           />
 
           <Stack.Screen
-            name="VerifyPage"
+            name="Verify"
             component={VerifyPage}
             options={{ title: 'Verify' }}
           />
@@ -41,19 +50,10 @@ export default function App() {
           <Stack.Screen
             name="HomePage"
             component={HomePage}
-            options={{ title: 'Home' }}
-          />
-
-          <Stack.Screen
-            name="HistoryPage"
-            component={HistoryPage}
-            options={{ title: 'History' }}
-          />
-
-          <Stack.Screen
-            name="TestPage"
-            component={TestPage}
-            options={{ title: 'Test' }}
+            options={{
+              title: 'Home',
+              headerShown: false
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, Button } from 'react-native'
 
 
 export default function RegisterPage() {

@@ -70,7 +70,7 @@ export default function LoginPage({ navigation }) {
         />
 
         <View>
-          <Button title="Login" mode="outlined" dark={true}>
+          <Button title="Login" mode="outlined" dark={true} onPress={submit}>
             {/* onPress={() => submit()} */}
           </Button>
         </View>
