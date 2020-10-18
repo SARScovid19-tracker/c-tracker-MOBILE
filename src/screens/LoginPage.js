@@ -1,15 +1,31 @@
 import React, { useState } from 'react'
-import { View, Image, StyleSheet, Text, TextInput,Button, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity
+} from 'react-native'
 
 const styles = StyleSheet.create({
+  containerLogo: {
+    padding: 20,
+    marginHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }, 
   container: {
     paddingTop: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor: 'blue'
   },
   img: {
-    height: 200,
-    width: 200
+    width: 200,
+    height: 50,
+    resizeMode: 'contain'
   },
   imgNormal: {
     paddingTop: 0,
@@ -25,14 +41,14 @@ const styles = StyleSheet.create({
   Wrapper: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
     // backgroundColor: '#1F3A93'
   },
   text: {
     color: 'blue',
     fontSize: 23
   }
-});
+})
 
 export default function LoginPage({ navigation }) {
 
@@ -41,42 +57,40 @@ export default function LoginPage({ navigation }) {
   // }
   function toRegister(){
     navigation.navigate('RegisterPage')
-   }
+  }
   return (
     <>
-      <View style={styles.container}>
+      <View style={styles.containerLogo}>
         <Image style={styles.img}
-          source={require('../../assets/logo-removebg-preview.png')}
+          source={require('../../assets/logo-removebg-preview-trimmed.png')}
         />
         {/* <Image style={styles.imgNormal}
         source={require('../../assets/new-normal.jpg')}
       /> */}
       </View>
-      <View
-        behavior="padding"
-        style={styles.Wrapper}>
-        <Text>
-          Email / Phone Number
-      </Text>
+      <View behavior="padding" style={styles.Wrapper}>
+        <Text>Email / Phone Number</Text>
         <TextInput
-          underlineColorAndroid='black'
-          placeholderTextColor='black'
-          keyboardType='email-address'
-          style={styles.inputField} />
+          underlineColorAndroid="black"
+          placeholderTextColor="black"
+          keyboardType="email-address"
+          style={styles.inputField}
+        />
 
-        <View >
-          <Button title="Login" mode="outlined" dark={true}>
+        <View>
+          <Button title="Login" mode="outlined" dark={true} onPress={submit}>
             {/* onPress={() => submit()} */}
           </Button>
         </View>
-        <View >
-          <Button title="Register" onPress={() => toRegister()} mode="outlined" dark={true}>
-            
-          </Button>
+        <View>
+          <Button
+            title="Register"
+            onPress={() => toRegister()}
+            mode="outlined"
+            dark={true}
+          ></Button>
         </View>
       </View>
-
     </>
-
   )
 }

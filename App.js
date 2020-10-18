@@ -1,57 +1,33 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer, StackActions } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import { Provider } from 'react-redux'
+import React from 'react'
 import store from './src/store'
-import { HomePage, HistoryPage, LoginPage, RegisterPage,
-TestPage, VerifyPage } from './src/screens/index'
+import { Provider } from 'react-redux'
+import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { mainColor } from './src/styles/styles'
+import MainTabScreen from './src/screens/MainTabScreen'
+
+import { DrawerContent } from './src/screens/DrawerContent'
+
+// * RootStack for authentication pages (welcome screen, login, verify and register)
+import RootStackScreen from './src/screens/RootStackScreen'
 
 export default function App() {
-  const Stack = createStackNavigator()
+  const Drawer = createDrawerNavigator()
+
   return (
     <Provider store={store}>
+      <StatusBar barStyle="light-content" backgroundColor={ mainColor.third } />
       <NavigationContainer>
-        <Stack.Navigator>
-
-          <Stack.Screen
-            name="LoginPage"
-            component={LoginPage}
-            options={{ title: 'Login' }}
-          />
-
-          <Stack.Screen
-            name="RegisterPage"
-            component={RegisterPage}
-            options={{ title: 'Register' }}
-          />
-
-          <Stack.Screen
-            name="VerifyPage"
-            component={VerifyPage}
-            options={{ title: 'Verify' }}
-          />
-
-          <Stack.Screen
-            name="HomePage"
-            component={HomePage}
-            options={{ title: 'Home' }}
-          />
-
-          <Stack.Screen
-            name="HistoryPage"
-            component={HistoryPage}
-            options={{ title: 'History' }}
-          />
-
-          <Stack.Screen
-            name="TestPage"
-            component={TestPage}
-            options={{ title: 'Test' }}
-          />
-
-        </Stack.Navigator>
+        <RootStackScreen />
+        {/* <Drawer.Navigator
+          initialRouteName="HomePage"
+          drawerContent={props => <DrawerContent {...props} />}
+        >
+          <Drawer.Screen name="HomePage" component={MainTabScreen} options={{ title: 'Home' }} />
+          <Drawer.Screen name="HistoryPage" component={HistoryStackScreen} options={{ title: 'History' }} />
+        </Drawer.Navigator> */}
       </NavigationContainer>
     </Provider>
-  );
+  )
 }
