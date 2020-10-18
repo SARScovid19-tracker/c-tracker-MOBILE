@@ -1,13 +1,188 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+import axios from 'axios'
+import qs from 'qs'
 import {
   View,
   Image,
   StyleSheet,
   Text,
   TextInput,
-  Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
+import { Button } from 'react-native-paper'
+import FontAwesome from '@expo/vector-icons/FontAwesome'
+import Feather from '@expo/vector-icons/Feather'
+import { LoginScreenStyle, mainColor, secondColor } from '../styles/styles'
+
+
+export default function LoginPage({ navigation }) {
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+  const [phone, setPhone] = useState('');
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+      Notifications.removeNotificationSubscription(responseListener);
+    };
+  }, []);
+
+
+  function submitLogin() {
+    let mobile = "";
+    if (phone.startsWith("0")) {
+      let temp = phone.substring(1, phone.length);
+      mobile = "+62" + temp;
+
+      console.log(mobile, "<>>>>>>>>>>>> phone to +62");
+    }else{
+      mobile = phone
+    }
+
+    let data = qs.stringify({
+      phone: mobile,
+      deviceId: expoPushToken
+    });
+    console.log(data, ">>>>>>>.data")
+    let config = {
+      method: 'patch',
+      url: 'https://9bb75df1866b.ngrok.io/login',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log('masuk login axios client >>>>>>>>>>>>>>>>>>')
+        toVerify()
+        // navigation.navigate('VerifyPage')
+        console.log(JSON.stringify(response.data));
+      
+      })
+      .catch(function (error) {
+        console.log(error,">>>>>>>>>>>>>>>>>>>> axios login");
+      });
+
+  }
+
+  function toVerify(){
+    console.log('funct toverify triggred')
+    navigation.navigate('VerifyPage')
+  }
+  //navigation.navigate('LoginPage')
+  function toRegister() {
+    // navigation.navigate('RegisterPage')
+    navigation.navigate('RegisterPage')
+  }
+  return (
+    <View style={LoginScreenStyle.container}>
+      <View style={LoginScreenStyle.header}>
+        <Image style={styles.img}
+          source={require('../../assets/logo-removebg-preview-trimmed.png')}
+        />
+        {/* <Image style={styles.imgNormal}
+        source={require('../../assets/new-normal.jpg')}
+      /> */}
+      </View>
+      <View style={LoginScreenStyle.footer}>
+          <Text style={LoginScreenStyle.text_footer}>Phone Number</Text>
+          <View style={LoginScreenStyle.action}>
+            <FontAwesome
+              name="phone"
+              color={mainColor.third}
+              size={20}
+            />
+            <TextInput
+              underlineColorAndroid="#eee"
+              placeholder='+621234567890'
+              placeholderTextColor="#999"
+              keyboardType="phone-pad"
+              style={LoginScreenStyle.textInput}
+              onChangeText={(text) => setPhone(text)}
+            />
+            <Feather
+              name="check-circle"
+              color="green"
+              size={15}
+            />
+          </View>
+          <View style={{ alignSelf: 'auto', flex: 1, justifyContent: 'center' }}>
+            <Button
+              icon="login"
+              title="Login"
+              mode="contained"
+              dark={false}
+              style={{ borderRadius: 30 }}
+              color={secondColor.blue}
+              onPress={() => submitLogin()}
+            >Login</Button>
+            <Text style={{ textAlign: 'center', marginVertical: 10 }}>OR</Text>
+            <Button
+              icon="account-plus"
+              title="Register"
+              mode="outlined"
+              dark={false}
+              style={{ borderRadius: 30 }}
+              color="blue"
+              onPress={() => toRegister()}
+            >Register</Button>
+          </View>
+      </View>
+    </View>
+  )
+}
+
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Constants.isDevice) {
+    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+  console.log(token)
+  return token;
+}
+
 
 const styles = StyleSheet.create({
   containerLogo: {
@@ -15,7 +190,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center'
-  }, 
+  },
   container: {
     paddingTop: 5,
     justifyContent: 'center',
@@ -34,8 +209,8 @@ const styles = StyleSheet.create({
   },
   inputField: {
     width: 280,
-    color: 'white',
-    borderColor: 'white',
+    color: 'black',
+    borderColor: 'black',
     marginTop: 5
   },
   Wrapper: {
@@ -49,48 +224,3 @@ const styles = StyleSheet.create({
     fontSize: 23
   }
 })
-
-export default function LoginPage({ navigation }) {
-
-  // function submit(){
-  //  navigation.navigate('Verify')
-  // }
-  function toRegister(){
-    navigation.navigate('RegisterPage')
-  }
-  return (
-    <>
-      <View style={styles.containerLogo}>
-        <Image style={styles.img}
-          source={require('../../assets/logo-removebg-preview-trimmed.png')}
-        />
-        {/* <Image style={styles.imgNormal}
-        source={require('../../assets/new-normal.jpg')}
-      /> */}
-      </View>
-      <View behavior="padding" style={styles.Wrapper}>
-        <Text>Email / Phone Number</Text>
-        <TextInput
-          underlineColorAndroid="black"
-          placeholderTextColor="black"
-          keyboardType="email-address"
-          style={styles.inputField}
-        />
-
-        <View>
-          <Button title="Login" mode="outlined" dark={true} onPress={submit}>
-            {/* onPress={() => submit()} */}
-          </Button>
-        </View>
-        <View>
-          <Button
-            title="Register"
-            onPress={() => toRegister()}
-            mode="outlined"
-            dark={true}
-          ></Button>
-        </View>
-      </View>
-    </>
-  )
-}
