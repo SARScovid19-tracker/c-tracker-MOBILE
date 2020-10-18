@@ -52,18 +52,18 @@ export function DrawerContent ( props ) {
                     />
                   )}
                   label="Home"
-                  onPress={() => {}}
+                  onPress={() => {props.navigation.navigate('HomePage')}}
                 />
                 <DrawerItem
                   icon={({color, size}) => (
                     <Icon
-                      name="account-outline"
+                      name="history"
                       color={color}
                       size={size}
                     />
                   )}
-                  label="Test History"
-                  onPress={() => {}}
+                  label="History"
+                  onPress={() => {props.navigation.navigate('HistoryPage', { page: 'Covid-Test' })}}
                 />
           </Drawer.Section>
         </View>

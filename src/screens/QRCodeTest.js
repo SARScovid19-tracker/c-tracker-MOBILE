@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Button } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
+import { Button } from 'react-native-paper'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import { qrCodeStyle, windowHeight, windowWidth } from '../styles/styles'
+import { qrCodeStyle, windowHeight, windowWidth, secondColor } from '../styles/styles'
 
 export default function QrCodeScanner () {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [qrType, setQrType] = useState('')
 
   useEffect(() => {
     (async () => {
@@ -14,9 +16,17 @@ export default function QrCodeScanner () {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    const parsedData = data.split(',')
+    switch(parsedData[0].toLowerCase()) {
+      case 'hospital': {
+        setQrType('hospital')
+      }
+      default: {
+        setQrType('restaurant')
+      }
+    }
   };
 
   if (hasPermission === null) {
@@ -29,14 +39,41 @@ export default function QrCodeScanner () {
 
 
   return (
-    <View style={{ flex: 1, justifyContent: "center" }}>
+    <>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={[qrCodeStyle.container]}
+        style={[StyleSheet.absoluteFill,qrCodeStyle.container]}
         type={'back'}
         barCodeTypes={'qr'}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
-    </View>
+      <View style={{
+        flex: 1,
+        justifyContent: scanned ? 'flex-end' : 'center',
+        paddingBottom: scanned ? 20 : 0,
+        paddingHorizontal: scanned ? 80 : 0 }}>
+      {
+        scanned
+        ?
+        <Button
+          icon="camera"
+          mode="contained"
+          color={secondColor.blue}
+          onPress={() => setScanned(false)}
+          style={{ borderRadius: 30 }}
+        >Tap to Scan</Button>
+        :
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{
+            width: 200,
+            height: 200,
+            borderColor: '#fff',
+            borderStyle: 'dashed',
+            borderWidth: 5,
+            borderRadius: 30
+          }} />
+        </View>
+      }
+      </View>
+    </>
   )
 }

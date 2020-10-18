@@ -14,7 +14,7 @@ export default function HomePage ({ navigation }) {
       <Text>HomePages</Text>
       <Button
         title="Scan QR"
-        onPress={() => navigation.navigate('HistoryPage')}
+        onPress={() => navigation.navigate('QrCodeScanner')}
       />
     </View>
   )
