@@ -56,8 +56,8 @@ export default function RegisterPage({ navigation }) {
         Alert.alert('Input your first six number NIK')
       }
     }
-   
-   }
+
+}
 
   return (
     <>
@@ -74,7 +74,7 @@ export default function RegisterPage({ navigation }) {
           Name
       </Text>
         <TextInput
-         onChangeText={(text) => setName(text)}
+          onChangeText={(text) => setName(text)}
           underlineColorAndroid='black'
           placeholderTextColor='black'
           keyboardType='email-address'
@@ -113,7 +113,6 @@ export default function RegisterPage({ navigation }) {
 
         <View >
           <Button onPress={(event) => submitRegister( event )} title="Register" mode="outlined" dark={true}>
-            
             {/* berhasil ke login , kalo belum muncul validasi */}
           </Button>
         </View>
