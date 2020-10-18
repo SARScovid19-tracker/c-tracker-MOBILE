@@ -1,23 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, Image, StyleSheet, Text, TextInput, Button, Alert, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  Alert,
+  TouchableOpacity,
+  Platform,
+  Dimensions
+} from 'react-native'
+import { Button } from 'react-native-paper'
+import FontAwesome from '@expo/vector-icons/FontAwesome'
+import Feather from '@expo/vector-icons/Feather'
+import { LoginScreenStyle, mainColor, secondColor, windowWidth } from '../styles/styles'
 import axios from 'axios'
 import qs from 'qs'
+
 export default function RegisterPage({ navigation }) {
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [nik, setNik] = useState(0);
-
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [nik, setNik] = useState(0)
 
   async function submitRegister() {
-    let mobile = "";
-    if (phone.startsWith("0")) {
-      let temp = phone.substring(1, phone.length);
-      mobile = "+62" + temp;
+    let mobile = ''
+    if (phone.startsWith('0')) {
+      let temp = phone.substring(1, phone.length)
+      mobile = '+62' + temp
 
-      console.log(mobile, "<>>>>>>>>>>>> phone to +62");
-    }else{
+      console.log(mobile, '<>>>>>>>>>>>> phone to +62')
+    } else {
       mobile = phone
     }
     if (name !== '' && email !== '' && phone !== '' && nik !== '') {
@@ -25,11 +38,10 @@ export default function RegisterPage({ navigation }) {
         phone: mobile,
         nik,
         name,
-        email,
+        email
       }
       axios
-        .post(' https://9bb75df1866b.ngrok.io/register',
-          qs.stringify(data), {
+        .post(' https://9bb75df1866b.ngrok.io/register', qs.stringify(data), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' }
         })
         .then(function (res) {
@@ -48,103 +60,166 @@ export default function RegisterPage({ navigation }) {
         Alert.alert('phone must be filled in!')
       } else if (nik > 7 || nik < 7 || nik === '') {
         Alert.alert('Input your first six number NIK')
-      } 
+      }
     }
-
   }
 
   return (
-    <>
-      <View style={styles.container}>
-        <Image style={styles.img}
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Image
+          style={styles.img}
           source={require('../../assets/logo-removebg-preview.png')}
         />
       </View>
-      <View
-        behavior="padding"
-        style={styles.Wrapper}>
+      <View style={styles.footer}>
         {/* <Text>Your expo push token: {expoPushToken}</Text> */}
-        <Text>
-          Name
-      </Text>
-        <TextInput
-          onChangeText={(text) => setName(text)}
-          underlineColorAndroid='black'
-          placeholderTextColor='black'
-          keyboardType='email-address'
-          style={styles.inputField} />
-        <Text>
-          Email
-      </Text>
-        <TextInput
-          onChangeText={(text) => setEmail(text)}
-          underlineColorAndroid='black'
-          placeholderTextColor='black'
-          keyboardType='email-address'
-          style={styles.inputField} />
+        <Text style={styles.text_footer}>Name</Text>
+        <View style={styles.action}>
+          <Feather
+            name="edit-3"
+            color={mainColor.third}
+            size={20}
+          />
+          <TextInput
+            onChangeText={text => setName(text)}
+            underlineColorAndroid="#bbb"
+            placeholderTextColor="#999"
+            keyboardType="email-address"
+            style={styles.textInput}
+          />
+        </View>
+        <Text style={styles.text_footer}>Email</Text>
+        <View style={styles.action}>
+          <Feather
+            name="mail"
+            color={mainColor.third}
+            size={20}
+          />
+          <TextInput
+            onChangeText={text => setEmail(text)}
+            underlineColorAndroid="#bbb"
+            placeholderTextColor="#999"
+            keyboardType="email-address"
+            style={styles.textInput}
+          />
+        </View>
+        <Text style={styles.text_footer}>Phone</Text>
+        <View style={styles.action}>
+          <Feather
+            name="phone"
+            color={mainColor.third}
+            size={20}
+          />
+          <TextInput
+            onChangeText={num => setPhone(num)}
+            underlineColorAndroid="#bbb"
+            placeholderTextColor="#999"
+            keyboardType="phone-pad"
+            style={styles.textInput}
+          />
+        </View>
+        <Text style={styles.text_footer}>First Six Digit NIK</Text>
+        <View style={styles.action}>
+          <Feather
+            name="credit-card"
+            color={mainColor.third}
+            size={20}
+          />
+          <TextInput
+            underlineColorAndroid="#bbb"
+            placeholderTextColor="#999"
+            // coba cari set max nya 6
+            keyboardType="phone-pad"
+            style={styles.textInput}
+            onChangeText={num => setNik(num)}
+          />
+        </View>
 
-        <Text>
-          Phone
-      </Text>
-        <TextInput
-          onChangeText={(num) => setPhone(num)}
-          underlineColorAndroid='black'
-          placeholderTextColor='black'
-          keyboardType='number-pad'
-          style={styles.inputField} />
-
-        <Text>
-          First Six Digit NIK
-      </Text>
-        <TextInput
-          onChangeText={(num) => setNik(num)}
-          underlineColorAndroid='black'
-          placeholderTextColor='black'
-          // coba cari set max nya 6
-          keyboardType='number-pad'
-          style={styles.inputField} />
-
-
-        <View >
-          <Button onPress={(event) => submitRegister(event)} title="Register" mode="outlined" dark={true}>
-
+        <View style={{ alignSelf: 'auto', flex: 1, justifyContent: 'center' }}>
+          <Button
+            icon="page-next"
+            title="Register"
+            mode="contained"
+            dark={false}
+            style={{ borderRadius: 30 }}
+            color={mainColor.second}
+            onPress={event => submitRegister(event)}
+          >
             {/* berhasil ke login , kalo belum muncul validasi */}
+            Submit
           </Button>
         </View>
       </View>
-    </>
+    </View>
   )
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
-    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: mainColor.white,
+  },
+  header: {
+    flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingBottom: 50
   },
-  img: {
-    height: 200,
-    width: 200
+  footer: {
+    flex: 4,
+    backgroundColor: mainColor.first,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingVertical: 20,
+    paddingHorizontal: 30,
   },
-  imgNormal: {
-    paddingTop: 0,
-    height: 200,
-    width: 200
+  text_header: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold'
   },
-  inputField: {
-    width: 280,
-    color: 'black',
-    borderColor: 'white',
+  text_footer: {
+    color: mainColor.third,
+    fontSize: 16,
+    marginBottom: 4,
     marginTop: 5
   },
-  Wrapper: {
-    flex: 1,
+  action: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f2f2f2',
+    paddingBottom: 5
+  },
+  textInput: {
+    flex:1,
+    marginTop: Platform.os === 'ios' ? 0 : -12,
+    paddingBottom: 8,
+    paddingTop: 2,
+    paddingLeft: 10,
+    color: '#666',
+    fontSize: 16
+  },
+  button:{
+    alignItems: 'center',
+    marginTop: 50
+  },
+  signIn: {
+    width: '100%',
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#1F3A93'
+    borderRadius: 10
   },
-  text: {
-    color: 'blue',
-    fontSize: 23
+  textSign: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  img: {
+    width: 200,
+    height: 50,
+    resizeMode: 'cover'
   }
-});
+})
