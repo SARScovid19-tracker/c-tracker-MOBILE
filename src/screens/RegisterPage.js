@@ -1,52 +1,34 @@
-import Constants from 'expo-constants';
 import React, { useState, useEffect, useRef } from 'react'
 import { View, Image, StyleSheet, Text, TextInput, Button, Alert, TouchableOpacity } from 'react-native'
-import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
 import axios from 'axios'
 import qs from 'qs'
 export default function RegisterPage({ navigation }) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setphone] = useState('');
+  const [phone, setPhone] = useState('');
   const [nik, setNik] = useState(0);
-
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
-  useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-
-    // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
-
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener);
-      Notifications.removeNotificationSubscription(responseListener);
-    };
-  }, []);
 
 
   async function submitRegister() {
-    if (name !== '' && email !== '' && phone !== '' && nik !== '' && expoPushToken !== '') {
+    let mobile = "";
+    if (phone.startsWith("0")) {
+      let temp = phone.substring(1, phone.length);
+      mobile = "+62" + temp;
+
+      console.log(mobile, "<>>>>>>>>>>>> phone to +62");
+    }else{
+      mobile = phone
+    }
+    if (name !== '' && email !== '' && phone !== '' && nik !== '') {
       let data = {
-        phone,
+        phone: mobile,
         nik,
         name,
         email,
-        deviceId: expoPushToken
       }
       axios
-        .post('https://068537906b97.ngrok.io/register',
+        .post(' https://9bb75df1866b.ngrok.io/register',
           qs.stringify(data), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' }
         })
@@ -66,9 +48,7 @@ export default function RegisterPage({ navigation }) {
         Alert.alert('phone must be filled in!')
       } else if (nik > 7 || nik < 7 || nik === '') {
         Alert.alert('Input your first six number NIK')
-      } else if (!expoPushToken) {
-        Alert.alert('Use a reliable device')
-      }
+      } 
     }
 
   }
@@ -107,7 +87,7 @@ export default function RegisterPage({ navigation }) {
           Phone
       </Text>
         <TextInput
-          onChangeText={(num) => setphone(num)}
+          onChangeText={(num) => setPhone(num)}
           underlineColorAndroid='black'
           placeholderTextColor='black'
           keyboardType='number-pad'
@@ -134,37 +114,6 @@ export default function RegisterPage({ navigation }) {
       </View>
     </>
   )
-}
-
-async function registerForPushNotificationsAsync() {
-  let token;
-  if (Constants.isDevice) {
-    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
-
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-  console.log(token)
-  return token;
 }
 
 const styles = StyleSheet.create({
