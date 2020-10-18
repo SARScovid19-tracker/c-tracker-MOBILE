@@ -1,5 +1,3 @@
-import React from 'react'
-import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, Button } from 'react-native'
 import Constants from 'expo-constants';
 import React, { useState, useEffect, useRef } from 'react'
 import { View, Image, StyleSheet, Text, TextInput,Button, Alert, TouchableOpacity } from 'react-native'
