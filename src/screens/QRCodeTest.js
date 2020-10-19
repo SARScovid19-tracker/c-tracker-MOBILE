@@ -4,11 +4,16 @@ import { Button } from 'react-native-paper'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { qrCodeStyle, windowHeight, windowWidth, secondColor } from '../styles/styles'
 import RestaurantCheckInModal from '../components/RestaurantCheckInModal'
+import { useDispatch } from 'react-redux'
+import HospitalCheckInModal from '../components/HospitalCheckInModal'
 
 export default function QrCodeScanner ({ navigation }) {
+  const dispatch = useDispatch()
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [isRestaurantModalVisible, setIsRestaurantModalVisible] = useState(false)
+  const [isHospitalModalVisible, setIsHospitalModalVisible] = useState(false)
+  const [id, setId] = useState(0)
 
   useEffect(() => {
     (async () => {
@@ -22,11 +27,14 @@ export default function QrCodeScanner ({ navigation }) {
     const parsedData = data.split(',')
     switch(parsedData[0].toLowerCase()) {
       case 'hospital': {
-        navigation.navigate('HomePage', { id: parsedData[1], type: 'hospital' })
+        toggleHospitalModal()
+        setId(parsedData[1])
+        console.log(parsedData[1])
         break
       }
       case 'restaurant': {
         toggleRestaurantModal()
+        setId(parsedData[1])
         break
       }
       default: {
@@ -37,6 +45,8 @@ export default function QrCodeScanner ({ navigation }) {
   };
 
   const toggleRestaurantModal = () => setIsRestaurantModalVisible(!isRestaurantModalVisible)
+  const toggleHospitalModal = () => setIsHospitalModalVisible(!isHospitalModalVisible)
+  const backToHome = () => navigation.navigate('HomePage')
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -83,10 +93,20 @@ export default function QrCodeScanner ({ navigation }) {
         </View>
       }
       </View>
+      {isRestaurantModalVisible &&
       <RestaurantCheckInModal
         isVisible={isRestaurantModalVisible}
         toggleModal={toggleRestaurantModal}
-      />
+        isDone={backToHome}
+        id={id}
+      />}
+      {isHospitalModalVisible &&
+      <HospitalCheckInModal
+        isVisible={isHospitalModalVisible}
+        toggleModal={toggleHospitalModal}
+        isDone={backToHome}
+        id={id}
+      />}
     </>
   )
 }
