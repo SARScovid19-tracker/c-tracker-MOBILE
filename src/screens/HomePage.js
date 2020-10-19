@@ -3,8 +3,8 @@ import { Text, View, Image } from 'react-native'
 import { Button } from 'react-native-paper'
 import { styles, mainColor, secondColor } from '../styles/styles'
 // import Ionicons from '@expo/vector-icons/Ionicons'
-import Icons from '@expo/vector-icons/MaterialCommunityIcons'
-import RestaurantCheckInModal from '../components/RestaurantCheckInModal'
+// import Icons from '@expo/vector-icons/MaterialCommunityIcons'
+// import RestaurantCheckInModal from '../components/RestaurantCheckInModal'
 
 export default function HomePage ({ route, navigation }) {
   return (
@@ -18,6 +18,7 @@ export default function HomePage ({ route, navigation }) {
         <View style={{...styles.footer, justifyContent: 'flex-end', alignItems: 'stretch'}}>
           <Text></Text>
           <Button
+            icon="qrcode-scan"
             title="Scan QR"
             mode="contained"
             color={secondColor.blue}
