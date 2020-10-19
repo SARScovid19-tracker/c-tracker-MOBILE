@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   Dimensions
 } from 'react-native'
+import VerifyPage from './VerifyPage'
 import { Button } from 'react-native-paper'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
@@ -44,13 +45,11 @@ export default function LoginPage({ navigation }) {
     };
   }, []);
 
-
+  let mobile = "";
+  let temp = phone.substring(1, phone.length);
   function submitLogin() {
-    let mobile = "";
     if (phone.startsWith("0")) {
-      let temp = phone.substring(1, phone.length);
       mobile = "+62" + temp;
-
       console.log(mobile, "<>>>>>>>>>>>> phone to +62");
     }else{
       mobile = phone
@@ -63,7 +62,7 @@ export default function LoginPage({ navigation }) {
     console.log(data, ">>>>>>>.data")
     let config = {
       method: 'patch',
-      url: 'https://9bb75df1866b.ngrok.io/login',
+      url: 'https://bc548962eca3.ngrok.io/login',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -86,12 +85,17 @@ export default function LoginPage({ navigation }) {
 
   function toVerify(){
     console.log('funct toverify triggred')
-    navigation.navigate('VerifyPage')
+    navigation.navigate('VerifyPage',{
+      params: { mobile:mobile }
+    })
   }
   //navigation.navigate('LoginPage')
   function toRegister() {
-    // navigation.navigate('RegisterPage')
     navigation.navigate('RegisterPage')
+    // navigation.navigate('VerifyPage', {
+    //   params: { mobile:mobile }
+    // })
+    
   }
   return (
     <View style={LoginScreenStyle.container}>
@@ -135,6 +139,7 @@ export default function LoginPage({ navigation }) {
               color={secondColor.blue}
               onPress={() => submitLogin()}
             >Login</Button>
+         
             <Text style={{ textAlign: 'center', marginVertical: 10 }}>OR</Text>
             <Button
               icon="account-plus"
@@ -145,6 +150,7 @@ export default function LoginPage({ navigation }) {
               color="blue"
               onPress={() => toRegister()}
             >Register</Button>
+               {/* <VerifyPage mobile={mobile} /> */}
           </View>
       </View>
     </View>
