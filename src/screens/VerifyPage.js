@@ -105,6 +105,9 @@ export default function VerifyPage({ navigation, route }) {
   return (
 
     <View style={styles.bigBox}>
+
+    <View style={styles.mediumBox}>
+
       <View style={styles.miniBox}>
         <TextInput
           maxLength={1}
@@ -153,12 +156,17 @@ export default function VerifyPage({ navigation, route }) {
           onChangeText={(text) => setOtp6(text)}
         />
       </View>
-      <View style={styles.miniBox}>
+
+    </View>    
+
+    <View style={styles.smMedBox}>
+      {/* <View style={styles.miniBox}> */}
         <Button title="New Otp" onPress={() => onNewOtp()}>NewOtp</Button>
-      </View>
-      <View style={styles.miniBox}>
+      {/* </View> */}
+      {/* <View style={styles.miniBox}> */}
         <Button title="Verify" onPress={() => onVerify()}>VerifyPage</Button>
-      </View>
+      {/* </View> */}
+    </View>
 
     </View>
 
@@ -169,13 +177,21 @@ const styles = StyleSheet.create({
   bigBox: {
     backgroundColor: 'blue',
     flex: 1,
-    flexDirection: "row",
-    marginRight: 20,
-    marginLeft: 20
+    // flexDirection: "row",
+    margin: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  mediumBox: {
+    flex: 0.8,
+    flexDirection: 'row'
+  },
+  smMedBox: {
+    flex: 0.2
   },
   miniBox: {
     backgroundColor: 'yellow',
-    flex: 0.6,
+    // flex: 0.6,
     justifyContent: 'space-evenly',
   },
   box: {

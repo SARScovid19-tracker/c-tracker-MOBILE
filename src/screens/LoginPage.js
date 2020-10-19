@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
     // backgroundColor: 'blue'
   },
   img: {
-    width: 200,
-    height: 50,
+    width: 300,
+    height: 400,
     resizeMode: 'contain'
   },
   imgNormal: {
