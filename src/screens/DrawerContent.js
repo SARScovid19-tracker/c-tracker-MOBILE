@@ -26,19 +26,19 @@ export function DrawerContent ( props ) {
             <View style={{ flexDirection: 'row', marginTop: 15 }}>
               <Avatar.Image
                 source={{
-                  uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Rt72Wz9DlwH5nbncevF-0AHaEJ%26pid%3DApi%26h%3D160&f=1'
+                  uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.RoBqmg0saGRp7u-E_-RznAHaHa%26pid%3DApi%26h%3D160&f=1'
                 }}
                 size={50}
               />
               <View style={{ marginLeft: 15 , flexDirection: 'column'}}>
-                <Text style={styles.title}>Surya Permana</Text>
+                <Text style={styles.title}>Name Will Here</Text>
                 <Caption style={styles.caption}>verified</Caption>
               </View>
             </View>
             <View style={styles.col}>
                 <View style={styles.sectionCol}>
                   <Paragraph style={[styles.Paragraph]}>Email</Paragraph>
-                  <Caption style={styles.caption}>suryapermana996@gmail.com</Caption>
+                  <Caption style={styles.caption}>email@domain.com</Caption>
                 </View>
             </View>
           </View>
@@ -52,18 +52,18 @@ export function DrawerContent ( props ) {
                     />
                   )}
                   label="Home"
-                  onPress={() => {}}
+                  onPress={() => {props.navigation.navigate('HomePage')}}
                 />
                 <DrawerItem
                   icon={({color, size}) => (
                     <Icon
-                      name="account-outline"
+                      name="history"
                       color={color}
                       size={size}
                     />
                   )}
-                  label="Test History"
-                  onPress={() => {}}
+                  label="History"
+                  onPress={() => {props.navigation.navigate('HistoryPage', { page: 'Covid-Test' })}}
                 />
           </Drawer.Section>
         </View>

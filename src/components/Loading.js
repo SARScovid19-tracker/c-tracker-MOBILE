@@ -1,9 +1,10 @@
 import React from 'react'
+import { Text } from 'react-native'
 
 export default function Loading() {
     return (
-        <div>
+        <Text>
             Loading .....
-        </div>
+        </Text>
     )
 }

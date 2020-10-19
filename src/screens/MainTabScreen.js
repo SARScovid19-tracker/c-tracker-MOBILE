@@ -5,7 +5,9 @@ import Icon from '@expo/vector-icons/Ionicons'
 import { HomePage, HistoryPage, TestPage } from './index'
 import { mainColor } from '../styles/styles'
 import { TouchableOpacity, View } from 'react-native'
-import { color } from 'react-native-reanimated';
+import QrCodeScanner from './QRCodeTest'
+import HandleScanned from './HandleScanned'
+
 const HomeStack = createStackNavigator()
 const HistoryStack = createStackNavigator()
 const Tab = createMaterialBottomTabNavigator();
@@ -19,6 +21,7 @@ export default MainTabScreen  = ({ navigation }) => (
     inactiveColor={mainColor.third}
     // barStyle={{ backgroundColor: mainColor.third }}
     shifting={true}
+    style={{ size: 10 }}
   >
     <Tab.Screen
       name="Settings"
@@ -27,7 +30,7 @@ export default MainTabScreen  = ({ navigation }) => (
         tabBarLabel: 'Menu',
         tabBarColor: mainColor.second,
         tabBarIcon: ({ color }) => (
-          <Icon name="ios-menu" color={color} size={26} />
+          <Icon name="ios-menu" color={color} size={22} />
         ),
       }}
       listeners={({ navigation }) => ({
@@ -45,7 +48,7 @@ export default MainTabScreen  = ({ navigation }) => (
         tabBarLabel: 'Home',
         tabBarColor: mainColor.second,
         tabBarIcon: ({ color }) => (
-          <Icon name="ios-home" color={color} size={26} />
+          <Icon name="ios-home" color={color} size={22} />
         ),
       }}
     />
@@ -56,11 +59,10 @@ export default MainTabScreen  = ({ navigation }) => (
         tabBarLabel: 'HistoryPage',
         tabBarColor: mainColor.fourth,
         tabBarIcon: ({ color }) => (
-          <Icon name="ios-clock" color={color} size={26} />
+          <Icon name="ios-clock" color={color} size={22} />
         ),
         tabBarBadge: true
       }}
-      onPress={() => alert()}
     />
   </Tab.Navigator>
 )
@@ -82,6 +84,22 @@ export const HomeStackScreen = ({ navigation }) => (
       component={HomePage}
       options={{
         title: 'Home',
+        headerShown: false,
+      }}
+    />
+    <HomeStack.Screen
+      name="QrCodeScanner"
+      component={QrCodeScanner}
+      options={{
+        title: 'scanning..',
+        headerShown: true,
+      }}
+    />
+    <HomeStack.Screen
+      name="handleScanned"
+      component={HandleScanned}
+      options={{
+        title: 'processing',
         headerShown: false,
       }}
     />
