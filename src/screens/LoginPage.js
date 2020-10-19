@@ -93,10 +93,10 @@ export default function LoginPage({ navigation }) {
   }
   //navigation.navigate('LoginPage')
   function toRegister() {
-    // navigation.navigate('RegisterPage')
-    navigation.navigate('VerifyPage', {
-      params: { mobile:mobile }
-    })
+    navigation.navigate('RegisterPage')
+    // navigation.navigate('VerifyPage', {
+    //   params: { mobile:mobile }
+    // })
     
   }
   return (
