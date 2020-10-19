@@ -19,11 +19,11 @@ export default function WelcomePage({ navigation }) {
           image: (
             <Image
               style={styles.img}
-              source={require('../assets/onboarding-img1.png')}
+              source={require('../assets/logo-removebg-preview-trimmed.png')}
             />
           ),
           title: 'How it works?',
-          subtitle: `Scan a barcode in every restaurant you come in. We will track your visit. No one will know about your data!`
+          subtitle: `Scan a barcode in every restaurant you come in. We will track your visit. Only health care provider know your data!`
         },
         {
           backgroundColor: '#fe6e58',
@@ -34,7 +34,7 @@ export default function WelcomePage({ navigation }) {
             />
           ),
           title:
-            'How if you got notification about around with someone positive?',
+            'How if I got Notification?',
           subtitle: `Don't be panic! Check your status to hospital and do isolation!`
         },
         {
@@ -42,12 +42,12 @@ export default function WelcomePage({ navigation }) {
           image: (
             <Image
               style={styles.img}
-              source={require('../assets/onboarding-img3.png')}
+              source={require('../assets/hands-waving-flags-indonesia-removebg-preview.png')}
             />
           ),
           title: 'Together we can!',
           subtitle:
-            'Help government to track, with you we can recover our community. Together we make Indonesia be great again!!'
+            'Help government to track, with you we can recover our community. Together we make Indonesia 🇮🇩  be great again!!'
         }
       ]}
     />

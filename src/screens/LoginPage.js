@@ -11,7 +11,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native'
 import VerifyPage from './VerifyPage'
 import { Button } from 'react-native-paper'
@@ -57,7 +58,7 @@ export default function LoginPage({ navigation }) {
 
     let data = qs.stringify({
       phone: mobile,
-      deviceId: expoPushToken
+      // deviceId: expoPushToken
     });
     console.log(data, ">>>>>>>.data")
     let config = {
@@ -78,7 +79,8 @@ export default function LoginPage({ navigation }) {
       
       })
       .catch(function (error) {
-        console.log(error,">>>>>>>>>>>>>>>>>>>> axios login");
+        console.log(error.response.data.errors[0],">>>>>>>>>>>>>>>>>>>> axios login");
+        Alert.alert(error.response.data.errors[0])
       });
 
   }
@@ -86,7 +88,7 @@ export default function LoginPage({ navigation }) {
   function toVerify(){
     console.log('funct toverify triggred')
     navigation.navigate('VerifyPage',{
-      params: { mobile:mobile }
+      params: { mobile:mobile, expoPushToken: expoPushToken}
     })
   }
   //navigation.navigate('LoginPage')

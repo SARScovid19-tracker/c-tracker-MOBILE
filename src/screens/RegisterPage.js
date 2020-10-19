@@ -40,15 +40,17 @@ export default function RegisterPage({ navigation }) {
         name,
         email
       }
+      // tambahin alert untk cek email setelah berhasul register
       axios
         .post('https://bc548962eca3.ngrok.io/register', qs.stringify(data), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' }
         })
         .then(function (res) {
           console.log(`RESP: ${res.data}`)
+          Alert.alert('Please verify your email')
         })
         .catch(function (error) {
-          console.log(`ERR: ${error}`)
+          console.log(`ERR: ${error},>>>>>>>>>>>>>> register err axuos`)
         })
       navigation.navigate('LoginPage')
     } else {
