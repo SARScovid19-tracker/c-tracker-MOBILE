@@ -93,10 +93,10 @@ export default function LoginPage({ navigation }) {
   }
   //navigation.navigate('LoginPage')
   function toRegister() {
-    navigation.navigate('RegisterPage')
-    // navigation.navigate('VerifyPage', {
-    //   params: { mobile:mobile }
-    // })
+    // navigation.navigate('RegisterPage')
+    navigation.navigate('VerifyPage', {
+      params: { mobile:mobile }
+    })
     
   }
   return (
@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
     // backgroundColor: 'blue'
   },
   img: {
-    width: 200,
-    height: 50,
+    width: 300,
+    height: 400,
     resizeMode: 'contain'
   },
   imgNormal: {
