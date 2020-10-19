@@ -5,8 +5,8 @@ import Icon from '@expo/vector-icons/Ionicons'
 import { HomePage, HistoryPage, TestPage } from './index'
 import { mainColor } from '../styles/styles'
 import { TouchableOpacity, View } from 'react-native'
-import { color } from 'react-native-reanimated';
 import QrCodeScanner from './QRCodeTest'
+import HandleScanned from './HandleScanned'
 
 const HomeStack = createStackNavigator()
 const HistoryStack = createStackNavigator()
@@ -93,6 +93,14 @@ export const HomeStackScreen = ({ navigation }) => (
       options={{
         title: 'scanning..',
         headerShown: true,
+      }}
+    />
+    <HomeStack.Screen
+      name="handleScanned"
+      component={HandleScanned}
+      options={{
+        title: 'processing',
+        headerShown: false,
       }}
     />
   </HomeStack.Navigator>

@@ -22,8 +22,26 @@ export const secondColor = {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-  }
+  },
+  header: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 10
+  },
+  footer: {
+    flex: 4,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+  },
+  img: {
+    width: 150,
+    height: 50,
+    resizeMode: 'contain'
+  },
 })
 
 export const qrCodeStyle = StyleSheet.create({

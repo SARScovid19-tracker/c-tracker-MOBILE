@@ -13,44 +13,44 @@ export default function VerifyPage ({ navigation }) {
     <View style={ styles.bigBox }>
       <View style={ styles.miniBox }>
         <TextInput 
-        maxLength={1}
-        keyboardType="number-pad"
-        style={styles.box}
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
         />
       </View>
       <View style={ styles.miniBox }>
         <TextInput 
-        maxLength={1}
-        keyboardType="number-pad"
-        style={styles.box}
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
         />
       </View>
       <View style={ styles.miniBox }>
         <TextInput 
-        maxLength={1}
-        keyboardType="number-pad"
-        style={styles.box}
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
         />
       </View>
       <View style={ styles.miniBox }>
         <TextInput 
-        maxLength={1}
-        keyboardType="number-pad"
-        style={styles.box}
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
         />
       </View>
       <View style={ styles.miniBox }>
         <TextInput 
-        maxLength={1}
-        keyboardType="number-pad"
-        style={styles.box}
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
         />
       </View>
       <View style={ styles.miniBox }>
         <TextInput 
-        maxLength={1}
-        keyboardType="number-pad"
-        style={styles.box}
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
         />
       </View>
        {/* <Button title="Homepage" onPress={() => navigation.navigate('HomePage')}>VerifyPage</Button> */}
