@@ -1,15 +1,58 @@
 import React, { useState } from 'react'
 import { Text, Button, View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { Col, Grid } from 'react-native-easy-grid'
+import axios from 'axios'
+import qs from 'qs'
+import { NavigationHelpersContext } from '@react-navigation/native'
 // import { styles } from '../styles/styles'
 
 
 //timer 10 menit 
 // kalo udh 0.0 ada tombol request new otp
 
-export default function VerifyPage ({ navigation }) {
- const [otp, setOtp] = useState(0)
+export default function VerifyPage ({ navigation, route }) {
+  // onChangeText={(text) => setPhone(text)
+  console.log(route,">>>>>>>>>>>>>>")
+ const [otp1, setOtp1] = useState(0)
+ const [otp2, setOtp2] = useState(0)
+ const [otp3, setOtp3] = useState(0)
+ const [otp4, setOtp4] = useState(0)
+ const [otp5, setOtp5] = useState(0)
+ const [otp6, setOtp6] = useState(0)
+ const { mobile } = route.params.params
+ console.log(mobile,">>>>>>>>>>>>>>>>>>>> verify mobile")
+
+ function onVerify() {
+  let data = qs.stringify({
+    phone: mobile,
+   code: `${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`
+   });
+   console.log(data,">>>>>>>>>>>>>>.data verify")
+
+  let config = {
+    method: 'post',
+    url: 'https://bc548962eca3.ngrok.io/verify',
+    headers: { 
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data : data
+  };
+  
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    // toHome()
  
+  })
+  .catch(function (error) {
+    console.log(error,">>>>>>>>>>>>>> err in verify client");
+  });
+ 
+ }
+
+// function toHome(){
+//   navigation.navigate('HomePage')
+// }
   return (
     // <View style={ styles.container }>
     //   <KeyboardAvoidingView
@@ -33,12 +76,15 @@ export default function VerifyPage ({ navigation }) {
     //       </View>
     //   </KeyboardAvoidingView>
     // </View>
+
+    
     <View style={ styles.bigBox }>
       <View style={ styles.miniBox }>
         <TextInput 
         maxLength={1}
         keyboardType="number-pad"
         style={styles.box}
+          onChangeText={(text) => setOtp1(text)}
         />
       </View>
       <View style={ styles.miniBox }>
@@ -46,6 +92,7 @@ export default function VerifyPage ({ navigation }) {
         maxLength={1}
         keyboardType="number-pad"
         style={styles.box}
+        onChangeText={(text) => setOtp2(text)}
         />
       </View>
       <View style={ styles.miniBox }>
@@ -53,6 +100,7 @@ export default function VerifyPage ({ navigation }) {
         maxLength={1}
         keyboardType="number-pad"
         style={styles.box}
+        onChangeText={(text) => setOtp3(text)}
         />
       </View>
       <View style={ styles.miniBox }>
@@ -60,6 +108,7 @@ export default function VerifyPage ({ navigation }) {
         maxLength={1}
         keyboardType="number-pad"
         style={styles.box}
+        onChangeText={(text) => setOtp4(text)}
         />
       </View>
       <View style={ styles.miniBox }>
@@ -67,6 +116,7 @@ export default function VerifyPage ({ navigation }) {
         maxLength={1}
         keyboardType="number-pad"
         style={styles.box}
+        onChangeText={(text) => setOtp5(text)}
         />
       </View>
       <View style={ styles.miniBox }>
@@ -74,9 +124,13 @@ export default function VerifyPage ({ navigation }) {
         maxLength={1}
         keyboardType="number-pad"
         style={styles.box}
+        onChangeText={(text) => setOtp6(text)}
         />
       </View>
-       <Button title="Homepage" onPress={() => navigation.navigate('HomePage')}>VerifyPage</Button>
+      <View>
+      <Button title="Verify" onPress={() => onVerify()}>VerifyPage</Button>
+      </View>
+       
     </View>
    
   )

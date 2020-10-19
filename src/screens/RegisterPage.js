@@ -41,7 +41,7 @@ export default function RegisterPage({ navigation }) {
         email
       }
       axios
-        .post(' https://9bb75df1866b.ngrok.io/register', qs.stringify(data), {
+        .post('https://bc548962eca3.ngrok.io/register', qs.stringify(data), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' }
         })
         .then(function (res) {
