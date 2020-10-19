@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { mainColor } from './src/styles/styles'
 import MainTabScreen from './src/screens/MainTabScreen'
+import { CheckInHistory, CovidTestHistory } from './src/screens'
 
 import { DrawerContent } from './src/screens/DrawerContent'
 
@@ -21,11 +22,10 @@ export default function App() {
       <NavigationContainer>
         <RootStackScreen />
         {/* <Drawer.Navigator
-          initialRouteName="HomePage"
+          initialRouteName="MainTabScreen"
           drawerContent={props => <DrawerContent {...props} />}
         >
-          <Drawer.Screen name="HomePage" component={MainTabScreen} options={{ title: 'Home' }} />
-          <Drawer.Screen name="HistoryPage" component={HistoryStackScreen} options={{ title: 'History' }} />
+          <Drawer.Screen name="MainTabScreen" component={MainTabScreen} options={{ title: 'Home' }} />
         </Drawer.Navigator> */}
       </NavigationContainer>
     </Provider>

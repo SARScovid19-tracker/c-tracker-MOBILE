@@ -10,9 +10,13 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
+import { Button } from 'react-native-paper'
+import FontAwesome from '@expo/vector-icons/FontAwesome'
+import Feather from '@expo/vector-icons/Feather'
+import { LoginScreenStyle, mainColor, secondColor } from '../styles/styles'
 
 
 export default function LoginPage({ navigation }) {
@@ -89,11 +93,11 @@ export default function LoginPage({ navigation }) {
   //navigation.navigate('LoginPage')
   function toRegister() {
     // navigation.navigate('RegisterPage')
-    navigation.navigate('VerifyPage')
+    navigation.navigate('RegisterPage')
   }
   return (
-    <>
-      <View style={styles.containerLogo}>
+    <View style={LoginScreenStyle.container}>
+      <View style={LoginScreenStyle.header}>
         <Image style={styles.img}
           source={require('../../assets/logo-removebg-preview-trimmed.png')}
         />
@@ -101,31 +105,51 @@ export default function LoginPage({ navigation }) {
         source={require('../../assets/new-normal.jpg')}
       /> */}
       </View>
-      <View behavior="padding" style={styles.Wrapper}>
-        <Text>Phone Number</Text>
-        <TextInput
-          onChangeText={(text) => setPhone(text)}
-          underlineColorAndroid="black"
-          placeholder='+621234567890'
-          placeholderTextColor="black"
-          keyboardType="numeric"
-          style={styles.inputField}
-        />
-
-        <View>
-          <Button title="Login" mode="outlined" dark={true} onPress={() => submitLogin()}>
-          </Button>
-        </View>
-        <View>
-          <Button
-            title="Register"
-            onPress={() => toRegister()}
-            mode="outlined"
-            dark={true}
-          ></Button>
-        </View>
+      <View style={LoginScreenStyle.footer}>
+          <Text style={LoginScreenStyle.text_footer}>Phone Number</Text>
+          <View style={LoginScreenStyle.action}>
+            <FontAwesome
+              name="phone"
+              color={mainColor.third}
+              size={20}
+            />
+            <TextInput
+              underlineColorAndroid="#eee"
+              placeholder='+621234567890'
+              placeholderTextColor="#999"
+              keyboardType="phone-pad"
+              style={LoginScreenStyle.textInput}
+              onChangeText={(text) => setPhone(text)}
+            />
+            <Feather
+              name="check-circle"
+              color="green"
+              size={15}
+            />
+          </View>
+          <View style={{ alignSelf: 'auto', flex: 1, justifyContent: 'center' }}>
+            <Button
+              icon="login"
+              title="Login"
+              mode="contained"
+              dark={false}
+              style={{ borderRadius: 30 }}
+              color={secondColor.blue}
+              onPress={() => submitLogin()}
+            >Login</Button>
+            <Text style={{ textAlign: 'center', marginVertical: 10 }}>OR</Text>
+            <Button
+              icon="account-plus"
+              title="Register"
+              mode="outlined"
+              dark={false}
+              style={{ borderRadius: 30 }}
+              color="blue"
+              onPress={() => toRegister()}
+            >Register</Button>
+          </View>
       </View>
-    </>
+    </View>
   )
 }
 
