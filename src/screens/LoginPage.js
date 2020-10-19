@@ -82,7 +82,9 @@ export default function LoginPage({ navigation }) {
 
   function toVerify(){
     console.log('funct toverify triggred')
-    navigation.navigate('VerifyPage')
+    navigation.navigate('VerifyPage',{
+      params: { mobile: mobile }
+    })
   }
   //navigation.navigate('LoginPage')
   function toRegister() {

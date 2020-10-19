@@ -1,5 +1,5 @@
-import React, { useState, } from 'react'
-import { Text, Button, View, TextInput, StyleSheet, } from 'react-native'
+import React, { useState } from 'react'
+import { Text, Button, View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { Col, Grid } from 'react-native-easy-grid'
 // import { styles } from '../styles/styles'
 
@@ -8,8 +8,31 @@ import { Col, Grid } from 'react-native-easy-grid'
 // kalo udh 0.0 ada tombol request new otp
 
 export default function VerifyPage ({ navigation }) {
-
+ const [otp, setOtp] = useState(0)
+ 
   return (
+    // <View style={ styles.container }>
+    //   <KeyboardAvoidingView
+    //   keyboardVerticalOffset={50}
+    //   behavior={padding}
+    //   style= {styles.containerAvoidingView}
+    //   >
+    //       <Text style={styles.textTitle}>
+    //         {"Input your OTP code sent via SMS"}
+    //       </Text>
+    //       <View>
+    //         <TextInput
+    //         onChangeText= { onChangeText }
+    //         style= {{ width:0, height:0 }}
+    //         value={intervalVal}
+    //         maxLength={1}
+    //         keyboardType="numeric"
+    //         />
+
+           
+    //       </View>
+    //   </KeyboardAvoidingView>
+    // </View>
     <View style={ styles.bigBox }>
       <View style={ styles.miniBox }>
         <TextInput 
@@ -53,13 +76,29 @@ export default function VerifyPage ({ navigation }) {
         style={styles.box}
         />
       </View>
-       {/* <Button title="Homepage" onPress={() => navigation.navigate('HomePage')}>VerifyPage</Button> */}
+       <Button title="Homepage" onPress={() => navigation.navigate('HomePage')}>VerifyPage</Button>
     </View>
    
   )
 }
 
 
+
+// const styles = StyleSheet.create({
+// container:{
+//   flex: 1
+// },
+// containerAvoidingView:{
+//   flex: 1,
+//   alignItems: 'center',
+//   padding : 10
+// },
+// textTitle:{
+//   marginTop: 50,
+//   marginBottom: 50,
+//   fontSize: 16
+// }
+// })
 
 const styles = StyleSheet.create({
   bigBox:{
