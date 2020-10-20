@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Text, View, Image, TouchableOpacity, Linking, Platform,StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import { styles, mainColor, secondColor } from '../styles/styles'
+import { getDataCovid } from '../actions/actions'
 // import Ionicons from '@expo/vector-icons/Ionicons'
 // import Icons from '@expo/vector-icons/MaterialCommunityIcons'
 // import RestaurantCheckInModal from '../components/RestaurantCheckInModal'
 
 export default function HomePage({ route, navigation }) {
+  const dispatch = useDispatch()
+  const dataCovid = useSelector((state) => state.dataCovid.data)
+
+  useEffect(() => {
+    dispatch(getDataCovid())
+  }, [])
+  console.log(dataCovid,">>>>>>>> dataCovid di home")
 
   function dialCall() {
 
@@ -37,6 +46,20 @@ export default function HomePage({ route, navigation }) {
 
           </TouchableOpacity>
 
+        </View>
+        <View>
+          <Text>
+            Dirawat: {dataCovid.dirawat}
+          </Text>
+          <Text>
+            Meninggal: {dataCovid.meninggal}
+          </Text>
+          <Text>
+            Positif: {dataCovid.positif}
+          </Text>
+          <Text>
+            Tanggal: {dataCovid.tanggal}
+          </Text>
         </View>
         <View style={{ ...styles.footer, justifyContent: 'flex-end', alignItems: 'stretch' }}>
           <Text></Text>
