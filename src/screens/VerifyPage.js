@@ -9,12 +9,12 @@ import {
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Col, Grid } from 'react-native-easy-grid'
-import axios from 'axios'
+import axios from '../config/axios'
 import qs from 'qs'
 import { NavigationHelpersContext } from '@react-navigation/native'
 import { mainColor, secondColor, windowWidth } from '../styles/styles'
 // import { styles } from '../styles/styles'
-// ! demo purpose
+
 import { AuthContext } from '../components/context'
 
 
@@ -46,7 +46,7 @@ export default function VerifyPage({ navigation, route }) {
 
     let config = {
       method: 'post',
-      url: 'https://bc548962eca3.ngrok.io/verify',
+      url: '/verify',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -57,7 +57,7 @@ export default function VerifyPage({ navigation, route }) {
       .then(function (response) {
         console.log(response.data, '>>>>>>>>>>>>>.data berhasil verify')
         // toHome()
-        login()
+        login(response.data)
       })
       .catch(function (error) {
         console.log(error, '>>>>>>>>>>>>>> err in verify client')
@@ -71,23 +71,6 @@ export default function VerifyPage({ navigation, route }) {
       //deviceId: expoPushToken
     })
     console.log(dataNewOtp, '>>>>>>>.data new otp')
-
-    // let logout = {
-    //   method: 'patch',
-    //   url: 'https://bc548962eca3.ngrok.io/logout',
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   },
-    //   data: dataNewOtp
-    // };
-
-    // axios(logout)
-    //   .then(function (response) {
-    //     console.log(JSON.stringify(response.data))
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
 
     let config = {
       method: 'patch',
@@ -207,9 +190,7 @@ export default function VerifyPage({ navigation, route }) {
           title="Verify"
           mode="contained"
           color={secondColor.blue}
-          // ! remember to change
-          // onPress={() => onVerify()}>
-          onPress={() => login()}
+          onPress={() => onVerify()}
         >
           Verify
         </Button>

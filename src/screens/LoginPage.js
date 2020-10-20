@@ -138,8 +138,8 @@ export default function LoginPage({ navigation }) {
               dark={false}
               style={{ borderRadius: 30 }}
               color={secondColor.blue}
-              // onPress={() => submitLogin()}
-              onPress={() => toVerify()}
+              onPress={() => submitLogin()}
+              // onPress={() => toVerify()}
             >Login</Button>
          
             <Text style={{ textAlign: 'center', marginVertical: 10 }}>OR</Text>
