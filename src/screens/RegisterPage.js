@@ -14,7 +14,7 @@ import { Button } from 'react-native-paper'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
 import { LoginScreenStyle, mainColor, secondColor, windowWidth } from '../styles/styles'
-import axios from 'axios'
+import axios from '../config/axios'
 import qs from 'qs'
 
 export default function RegisterPage({ navigation }) {
@@ -41,8 +41,9 @@ export default function RegisterPage({ navigation }) {
         email
       }
       // tambahin alert untk cek email setelah berhasul register
+      console.log(data, '<<<< data register')
       axios
-        .post('https://f378486d8358.ngrok.io/register', qs.stringify(data), {
+        .post('/register', qs.stringify(data), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' }
         })
         .then(function (res) {

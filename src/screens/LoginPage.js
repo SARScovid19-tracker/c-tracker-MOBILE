@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
-import axios from 'axios'
+import axios from '../config/axios'
 import qs from 'qs'
 import {
   View,
@@ -62,7 +62,7 @@ export default function LoginPage({ navigation }) {
     console.log(data, ">>>>>>>.data")
     let config = {
       method: 'patch',
-      url: 'https://ac0231232ab1.ngrok.io/login',
+      url: '/login',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -79,7 +79,7 @@ export default function LoginPage({ navigation }) {
       })
       .catch(function (error) {
         console.log(error.response,">>>>>>>>>>>>>>>>>>>> axios login");
-        Alert.alert(error.response.data.errors[0])
+        // Alert.alert(error.response.data.errors[0])
       })
       .catch(console.log)
   }

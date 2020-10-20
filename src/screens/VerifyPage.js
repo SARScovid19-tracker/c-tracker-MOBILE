@@ -74,7 +74,7 @@ export default function VerifyPage({ navigation, route }) {
 
     let config = {
       method: 'patch',
-      url: 'https://bc548962eca3.ngrok.io/login',
+      url: '/login',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
