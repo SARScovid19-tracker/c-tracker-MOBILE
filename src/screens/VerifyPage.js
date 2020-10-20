@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Text,
   View,
@@ -77,7 +77,7 @@ export default function VerifyPage({ navigation, route }) {
       })
       .catch(function (error) {
         console.log(error, '>>>>>>>>>>>>>> err in verify client')
-        Alert.alert(error.response.data.errors[0])
+        Alert.alert(error.response.data.errors)
       })
   }
 
