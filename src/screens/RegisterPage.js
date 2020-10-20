@@ -59,6 +59,7 @@ export default function RegisterPage({ navigation }) {
         email
       }
       // tambahin alert untk cek email setelah berhasul register
+      console.log(data, '<<<< data register')
       axios
         .post('/register', qs.stringify(data), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' }

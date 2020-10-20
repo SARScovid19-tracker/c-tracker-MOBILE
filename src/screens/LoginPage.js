@@ -99,7 +99,7 @@ export default function LoginPage({ navigation }) {
       })
       .catch(function (error) {
         console.log(error.response,">>>>>>>>>>>>>>>>>>>> axios login");
-        Alert.alert(error.response.data.errors[0])
+        // Alert.alert(error.response.data.errors[0])
       })
       .catch(console.log)
   }
