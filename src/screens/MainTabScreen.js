@@ -116,7 +116,6 @@ export const HistoryStackScreen = ({ navigation }) => (
       headerTitleAlign: 'center',
       headerStatusBarHeight: 0
     }}
-    initialRouteName="Home"
   >
     <HistoryStack.Screen
       name="HistoryPage"

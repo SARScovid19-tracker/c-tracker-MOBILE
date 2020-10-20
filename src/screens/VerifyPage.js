@@ -13,8 +13,7 @@ import axios from '../config/axios'
 import qs from 'qs'
 import { NavigationHelpersContext } from '@react-navigation/native'
 import { mainColor, secondColor, windowWidth } from '../styles/styles'
-// import { styles } from '../styles/styles'
-
+import { useDispatch } from 'react-redux'
 import { AuthContext } from '../components/context'
 
 
@@ -22,6 +21,7 @@ import { AuthContext } from '../components/context'
 // kalo udh 0.0 ada tombol request new otp
 
 export default function VerifyPage({ navigation, route }) {
+  const dispatch = useDispatch()
   // onChangeText={(text) => setPhone(text)
   // console.log(route, ">>>>>>>>>>>>>>")
   const [otp1, setOtp1] = useState('')
@@ -57,7 +57,11 @@ export default function VerifyPage({ navigation, route }) {
       .then(function (response) {
         console.log(response.data, '>>>>>>>>>>>>>.data berhasil verify')
         // toHome()
-        login(response.data)
+        dispatch({
+          type: 'USER_LOGIN',
+          payload: response.data
+        })
+        login(response.data.token)
       })
       .catch(function (error) {
         console.log(error, '>>>>>>>>>>>>>> err in verify client')

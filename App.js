@@ -18,7 +18,6 @@ import RootStackScreen from './src/screens/RootStackScreen'
 export default function App() {
   const Drawer = createDrawerNavigator()
   const initAuthState = {
-    user: {},
     loading: true,
     token: null
   }
@@ -39,14 +38,12 @@ export default function App() {
       case 'USER_LOGIN':
         return {
           ...prevState,
-          user: action.payload,
           loading: false,
-          token: action.payload.token
+          token: action.payload
         }
       case 'USER_LOGOUT' :
         return {
           ...prevState,
-          user: {},
           token: null,
           loading: false
         }
@@ -57,33 +54,13 @@ export default function App() {
 
   const authContext = React.useMemo(() => ({
     login: async(payload) => {
-      dispatch({ type: 'LOADING' })
       try {
-        await AsyncStorage.setItem('user', JSON.stringify(payload))
-        await AsyncStorage.setItem('userToken', payload.token)
-        console.log('login -->>>', payload)
+        await AsyncStorage.setItem('userToken', payload)
       } catch (error) { console.log(error) }
       dispatch({ type: 'USER_LOGIN', payload })
     },
     logout: async() => {
-      dispatch({ type: 'LOADING' })
       try {
-        const userData = await AsyncStorage.getItem('user')
-        const phone = JSON.parse(userData).phone
-        const phoneQS = qs.stringify({
-          phone: phone
-        })
-        console.log(phoneQS, '<<<<<<< logout phone num')
-        const userLogout = await axios({
-          method: 'patch',
-          url: '/logout',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          data: phoneQS
-        })
-        console.log(userLogout.data, '<<<<<<<<<<<<<<<<,user logout')
-        await AsyncStorage.removeItem('user')
         await AsyncStorage.removeItem('userToken')
       } catch (error) { console.log(error.response) }
       dispatch({ type: 'USER_LOGOUT' })
@@ -96,7 +73,6 @@ export default function App() {
       try {
         const getUserToken = await AsyncStorage.getItem('userToken')
         userToken = getUserToken
-        console.log(userToken)
       } catch (error) { console.log(error) }
       dispatch({ type: 'USER_RETRIEVE', payload: userToken })
     }, 1000)

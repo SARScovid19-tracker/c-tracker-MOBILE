@@ -4,14 +4,18 @@ import { mainColor, styles, windowHeight } from '../styles/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchRestaurant } from '../actions/restaurantActions'
 import Loading from '../components/Loading'
+import Time from '../components/time'
 
 export default function CheckInHistory () {
   const dispatch = useDispatch()
   const history = useSelector(state => state.userRestaurant)
+  const userId = useSelector(state => state.userReducer.user.id)
   const { restaurants, error, loading } = history
 
   useEffect(() => {
-    dispatch(fetchRestaurant(1))
+    setTimeout(() => {
+      dispatch(fetchRestaurant(userId))
+    }, 2000)
   }, [dispatch])
 
   if (loading) return <Loading />
@@ -19,18 +23,19 @@ export default function CheckInHistory () {
 
   return (
     <ScrollView>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
         {
-          !loading && restaurants.map((each, i) => (
+          !loading && restaurants.length > 0 ? restaurants.map((each, i) => (
             <View style={card.CardContainer} key={i}>
               <View style={card.CardTitle}>
                 <Text>{each.Restaurant.name}</Text>
               </View>
               <View style={card.CardBody}>
-                <Text>Address: {each.Restaurant.address}</Text>
+                <Text>location: {each.Restaurant.address}</Text>
+                <Time time={each.createdAt} />
               </View>
             </View>
-          ))
+          )) : <Text>You don't have any check-in history</Text>
         }
       </View>
     </ScrollView>
@@ -57,5 +62,6 @@ const card = StyleSheet.create({
   },
   CardBody: {
     flex: 2,
+    justifyContent: 'space-around'
   }
 })

@@ -8,11 +8,8 @@ import { color } from 'react-native-reanimated';
 const Tab = createMaterialTopTabNavigator();
 
 export default function HistoryPage ({ route, navigation }) {
-  const [pageRequest, setPageRequest ] = React.useState('Checked-In')
-
   return (
     <Tab.Navigator
-      initialRouteName={pageRequest}
       tabBarOptions={{
         labelStyle: {fontSize: 14, textTransform: 'capitalize'},
         indicatorStyle: {backgroundColor: secondColor.blue, height: 5},
