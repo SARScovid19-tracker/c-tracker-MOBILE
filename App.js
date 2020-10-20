@@ -20,6 +20,7 @@ export default function App() {
   const initAuthState = {
     user: {},
     loading: true,
+    token: null
   }
 
   const authReducer = (prevState, action) => {
@@ -27,24 +28,26 @@ export default function App() {
       case 'LOADING' :
         return {
           ...prevState,
-          loading:true
+          loading:true,
         }
       case 'USER_RETRIEVE':
         return {
           ...prevState,
-          user: action.payload,
-          loading: false
+          loading: false,
+          token: action.payload
         }
       case 'USER_LOGIN':
         return {
           ...prevState,
           user: action.payload,
-          loading: false
+          loading: false,
+          token: action.payload.token
         }
       case 'USER_LOGOUT' :
         return {
           ...prevState,
           user: {},
+          token: null,
           loading: false
         }
     }
@@ -57,30 +60,31 @@ export default function App() {
       dispatch({ type: 'LOADING' })
       try {
         await AsyncStorage.setItem('user', JSON.stringify(payload))
+        await AsyncStorage.setItem('userToken', payload.token)
+        console.log('login -->>>', payload)
       } catch (error) { console.log(error) }
       dispatch({ type: 'USER_LOGIN', payload })
     },
     logout: async() => {
       dispatch({ type: 'LOADING' })
       try {
-        const getUser = await AsyncStorage.getItem('user')
-        if (getUser) {
-          const dataUser = JSON.parse(getUser)
-          let dataNewOtp = qs.stringify({
-            phone: dataUser.phone
-          })
-          console.log(dataNewOtp)
-          const userLogout = await axios({
-            method: 'patch',
-            url: '/logout',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data: dataNewOtp
-          })
-          console.log(userLogout, '<<<<<<<<<<<<<<<<,user logout')
-          await AsyncStorage.removeItem('user')
-        }
+        const userData = await AsyncStorage.getItem('user')
+        const phone = JSON.parse(userData).phone
+        const phoneQS = qs.stringify({
+          phone: phone
+        })
+        console.log(phoneQS, '<<<<<<< logout phone num')
+        const userLogout = await axios({
+          method: 'patch',
+          url: '/logout',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: phoneQS
+        })
+        console.log(userLogout.data, '<<<<<<<<<<<<<<<<,user logout')
+        await AsyncStorage.removeItem('user')
+        await AsyncStorage.removeItem('userToken')
       } catch (error) { console.log(error.response) }
       dispatch({ type: 'USER_LOGOUT' })
     }
@@ -88,14 +92,15 @@ export default function App() {
 
   React.useEffect(() => {
     setTimeout(async() => {
-      let user = {};
+      let userToken = null;
       try {
-        const getUser = await AsyncStorage.getItem('user')
-        user = JSON.parse(getUser)
+        const getUserToken = await AsyncStorage.getItem('userToken')
+        userToken = getUserToken
+        console.log(userToken)
       } catch (error) { console.log(error) }
-      dispatch({ type: 'USER_RETRIEVE', payload: user })
+      dispatch({ type: 'USER_RETRIEVE', payload: userToken })
     }, 1000)
-  }, [authContext])
+  }, [])
 
   if (authState.loading) {
     return (
@@ -110,7 +115,9 @@ export default function App() {
       <AuthContext.Provider value={authContext}>
         <StatusBar barStyle="light-content" backgroundColor={ mainColor.third } />
         <NavigationContainer>
-        { !authState.user
+        {/* condition for token, if no token then render authentication screens, 
+        else redirect to home */}
+        { !authState.token
           ? (<RootStackScreen />)
           : (<Drawer.Navigator
               initialRouteName="MainTabScreen"
