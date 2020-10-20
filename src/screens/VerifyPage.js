@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Text,
   View,
   TextInput,
   StyleSheet,
   Alert,
+  ToastAndroid,
   KeyboardAvoidingView
 } from 'react-native'
 import { Button } from 'react-native-paper'
@@ -15,7 +16,22 @@ import { NavigationHelpersContext } from '@react-navigation/native'
 import { mainColor, secondColor, windowWidth } from '../styles/styles'
 import { useDispatch } from 'react-redux'
 import { AuthContext } from '../components/context'
+import Constants from "expo-constants";
 
+
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
 
 //timer 10 menit
 // kalo udh 0.0 ada tombol request new otp
@@ -24,6 +40,7 @@ export default function VerifyPage({ navigation, route }) {
   const dispatch = useDispatch()
   // onChangeText={(text) => setPhone(text)
   // console.log(route, ">>>>>>>>>>>>>>")
+
   const [otp1, setOtp1] = useState('')
   const [otp2, setOtp2] = useState('')
   const [otp3, setOtp3] = useState('')
@@ -31,7 +48,10 @@ export default function VerifyPage({ navigation, route }) {
   const [otp5, setOtp5] = useState('')
   const [otp6, setOtp6] = useState('')
   const { mobile, expoPushToken } = route.params.params
-  // console.log(mobile, ">>>>>>>>>>>>>>>>>>>> verify mobile")
+
+  const [visibleToast, setvisibleToast] = useState(false);
+
+  useEffect(() => setvisibleToast(false), [visibleToast]);
 
   // ! demo
   const { login } = React.useContext(AuthContext)
@@ -42,7 +62,6 @@ export default function VerifyPage({ navigation, route }) {
       code: `${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`,
       deviceId: expoPushToken
     })
-    // console.log(data, ">>>>>>>>>>>>>>.data verify")
 
     let config = {
       method: 'post',
@@ -55,6 +74,7 @@ export default function VerifyPage({ navigation, route }) {
 
     axios(config)
       .then(function (response) {
+        setvisibleToast(true)
         console.log(response.data, '>>>>>>>>>>>>>.data berhasil verify')
         // toHome()
         dispatch({
@@ -65,14 +85,13 @@ export default function VerifyPage({ navigation, route }) {
       })
       .catch(function (error) {
         console.log(error, '>>>>>>>>>>>>>> err in verify client')
-        Alert.alert(error.response.data.errors[0])
+        Alert.alert(error.response.data.errors)
       })
   }
 
   function onNewOtp() {
     let dataNewOtp = qs.stringify({
       phone: mobile
-      //deviceId: expoPushToken
     })
     console.log(dataNewOtp, '>>>>>>>.data new otp')
 
@@ -88,8 +107,6 @@ export default function VerifyPage({ navigation, route }) {
     axios(config)
       .then(function (response) {
         console.log('masuk req new otp axios  >>>>>>>>>>>>>>>>>>')
-        // toVerify()
-        // navigation.navigate('VerifyPage')
         console.log(JSON.stringify(response))
       })
       .catch(function (error) {
@@ -110,6 +127,7 @@ export default function VerifyPage({ navigation, route }) {
   return (
     <View style={styles.bigBox}>
       <View style={styles.mediumBox}>
+      <Toast visible={visibleToast} message="You're verified!" />
           <TextInput
             maxLength={1}
             keyboardType="number-pad"
@@ -230,23 +248,25 @@ const styles = StyleSheet.create({
   },
   miniBox: {
     backgroundColor: 'yellow',
-    // flex: 0.6,
     justifyContent: 'space-evenly'
   },
   box: {
     backgroundColor: 'white',
     fontWeight: '200',
-    // marginLeft: 0,
-    // marginRight:0,
-    // padding:20,
     fontSize: windowWidth / 15,
     height: windowWidth / 7,
     width: windowWidth / 7,
-    // width: '10%',
     borderWidth: 0.5,
     borderRadius: 5,
     borderColor: 'blue',
     textAlign: 'center',
     alignContent: 'center'
+  },
+  toast:{
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#888888",
+    padding: 8
   }
 })
