@@ -20,13 +20,13 @@ export default function App() {
     <Provider store={store}>
       <StatusBar barStyle="light-content" backgroundColor={ mainColor.third } />
       <NavigationContainer>
-        <RootStackScreen />
-        {/* <Drawer.Navigator
+        {/* <RootStackScreen /> */}
+        <Drawer.Navigator
           initialRouteName="MainTabScreen"
           drawerContent={props => <DrawerContent {...props} />}
         >
           <Drawer.Screen name="MainTabScreen" component={MainTabScreen} options={{ title: 'Home' }} />
-        </Drawer.Navigator> */}
+        </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
   )

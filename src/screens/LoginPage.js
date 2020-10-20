@@ -63,7 +63,7 @@ export default function LoginPage({ navigation }) {
     console.log(data, ">>>>>>>.data")
     let config = {
       method: 'patch',
-      url: 'https://bc548962eca3.ngrok.io/login',
+      url: 'https://f378486d8358.ngrok.io/login',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
     // backgroundColor: 'blue'
   },
   img: {
-    width: 200,
-    height: 50,
+    width: 300,
+    height: 400,
     resizeMode: 'contain'
   },
   imgNormal: {

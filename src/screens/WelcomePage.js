@@ -18,12 +18,16 @@ export default function WelcomePage({ navigation }) {
           backgroundColor: '#fff',
           image: (
             <Image
-              style={styles.img}
+              style={styles.imgLogo}
               source={require('../assets/logo-removebg-preview-trimmed.png')}
             />
           ),
           title: 'How it works?',
-          subtitle: `Scan a barcode in every restaurant you come in. We will track your visit. Only health care provider know your data!`
+          subtitle: (
+            <Text style={styles.textContent}>
+              Scan a barcode in every restaurant you come in. We will track your visit. Only health care provider know your data!
+            </Text>
+          )
         },
         {
           backgroundColor: '#fe6e58',
@@ -35,7 +39,11 @@ export default function WelcomePage({ navigation }) {
           ),
           title:
             'How if I got Notification?',
-          subtitle: `Don't be panic! Check your status to hospital and do isolation!`
+          subtitle: (
+            <Text style={styles.textContentBg}>
+              Don't be panic! Check your status to hospital and do isolation!
+            </Text>
+            )
         },
         {
           backgroundColor: '#999',
@@ -47,7 +55,9 @@ export default function WelcomePage({ navigation }) {
           ),
           title: 'Together we can!',
           subtitle:
-            'Help government to track, with you we can recover our community. Together we make Indonesia 🇮🇩  be great again!!'
+          <Text style={styles.textContentBg}>
+            Help government to track, with you we can recover our community. Together we make Indonesia 🇮🇩  be great again!!
+          </Text>
         }
       ]}
     />
@@ -65,5 +75,24 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: 'contain'
+  },
+  imgLogo: {
+    width: 300,
+    height: 200,
+    resizeMode: 'contain'
+  },
+  textContent: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginHorizontal: "10%",
+    lineHeight: 20,
+    color: 'black'
+  },
+  textContentBg: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginHorizontal: "10%",
+    lineHeight: 20,
+    color: 'rgba(255,255,255,0.7)'
   }
 })

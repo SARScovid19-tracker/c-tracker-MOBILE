@@ -1,23 +1,31 @@
 import React from 'react'
-import { Text, View, Button } from 'react-native'
-import { styles } from '../styles/styles'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import CovidTestHistory from './history-testScreen'
+import CheckInHistory from './history-checkInScreen'
+import { mainColor, secondColor } from '../styles/styles'
+import { color } from 'react-native-reanimated';
 
-export default function HistoryPage ({ navigation }) {
+const Tab = createMaterialTopTabNavigator();
+
+export default function HistoryPage ({ route, navigation }) {
+  const [pageRequest, setPageRequest ] = React.useState('Checked-In')
+
   return (
-    <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>HistoryPage</Text>
-      {/* <Button
-        title="refresh this page"
-        onPress={() => navigation.push('HistoryPage')}
+    <Tab.Navigator
+      initialRouteName={pageRequest}
+      tabBarOptions={{
+        labelStyle: {fontSize: 14, textTransform: 'capitalize'},
+        indicatorStyle: {backgroundColor: secondColor.blue, height: 5},
+      }}
+    >
+      <Tab.Screen
+        name="Covid-Test"
+        component={CovidTestHistory}
       />
-      <Button
-        title="go back"
-        onPress={() => navigation.goBack()}
+      <Tab.Screen
+        name="Checked-In"
+        component={CheckInHistory}
       />
-      <Button
-        title="go home"
-        onPress={() => navigation.navigate('HomePage')}
-      /> */}
-    </View>
+    </Tab.Navigator>
   )
 }
