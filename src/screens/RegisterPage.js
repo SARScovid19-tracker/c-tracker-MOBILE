@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   Alert,
+  ToastAndroid,
   TouchableOpacity,
   Platform,
   Dimensions
@@ -14,15 +15,32 @@ import { Button } from 'react-native-paper'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
 import { LoginScreenStyle, mainColor, secondColor, windowWidth } from '../styles/styles'
-import axios from 'axios'
+import axios from '../config/axios'
 import qs from 'qs'
+import Constants from "expo-constants";
+
 
 export default function RegisterPage({ navigation }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [nik, setNik] = useState(0)
+  const [visibleToast, setvisibleToast] = useState(false);
 
+  const Toast = ({ visible, message }) => {
+    if (visible) {
+      ToastAndroid.showWithGravityAndOffset(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50
+      );
+      return null;
+    }
+    return null;
+  };
+  useEffect(() => setvisibleToast(false), [visibleToast]);
   async function submitRegister() {
     let mobile = ''
     if (phone.startsWith('0')) {
@@ -42,15 +60,16 @@ export default function RegisterPage({ navigation }) {
       }
       // tambahin alert untk cek email setelah berhasul register
       axios
-        .post('https://f378486d8358.ngrok.io/register', qs.stringify(data), {
+        .post('/register', qs.stringify(data), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' }
         })
         .then(function (res) {
-          console.log(`RESP: ${res.data}`)
+          setvisibleToast(true)
           Alert.alert('Please verify your email')
+          console.log(`RESP: ${res.data}`)
         })
         .catch(function (error) {
-          console.log(`ERR: ${error},>>>>>>>>>>>>>> register err axuos`)
+          console.log(`ERR: ${error.response.data.errors},>>>>>>>>>>>>>> register err axuos`)
         })
       navigation.navigate('LoginPage')
     } else {
@@ -60,7 +79,7 @@ export default function RegisterPage({ navigation }) {
         Alert.alert('Email must be filled in!')
       } else if (phone === '') {
         Alert.alert('phone must be filled in!')
-      } else if (nik > 7 || nik < 7 || nik === '') {
+      } else if (nik > 7 || nik === '') {
         Alert.alert('Input your first six number NIK')
       }
     }
@@ -69,13 +88,13 @@ export default function RegisterPage({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+      <Toast visible={visibleToast} message="Succesfully Registered" />
         <Image
           style={styles.img}
           source={require('../../assets/logo-removebg-preview.png')}
         />
       </View>
       <View style={styles.footer}>
-        {/* <Text>Your expo push token: {expoPushToken}</Text> */}
         <Text style={styles.text_footer}>Name</Text>
         <View style={styles.action}>
           <Feather
@@ -131,6 +150,7 @@ export default function RegisterPage({ navigation }) {
           <TextInput
             underlineColorAndroid="#bbb"
             placeholderTextColor="#999"
+            max={6}
             // coba cari set max nya 6
             keyboardType="phone-pad"
             style={styles.textInput}
@@ -148,7 +168,6 @@ export default function RegisterPage({ navigation }) {
             color={mainColor.second}
             onPress={event => submitRegister(event)}
           >
-            {/* berhasil ke login , kalo belum muncul validasi */}
             Submit
           </Button>
         </View>
@@ -223,5 +242,12 @@ export const styles = StyleSheet.create({
     width: 200,
     height: 50,
     resizeMode: 'cover'
+  },
+  toast:{
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#888888",
+    padding: 8
   }
 })

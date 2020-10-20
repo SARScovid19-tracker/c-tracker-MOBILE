@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
-import axios from 'axios'
+import axios from '../config/axios'
 import qs from 'qs'
 import {
   View,
@@ -10,15 +10,31 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   Dimensions,
   Alert
 } from 'react-native'
-import VerifyPage from './VerifyPage'
 import { Button } from 'react-native-paper'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
 import { LoginScreenStyle, mainColor, secondColor } from '../styles/styles'
+
+
+
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
 
 export default function LoginPage({ navigation }) {
 
@@ -27,6 +43,10 @@ export default function LoginPage({ navigation }) {
   const notificationListener = useRef();
   const responseListener = useRef();
   const [phone, setPhone] = useState('');
+  const [visibleToast, setvisibleToast] = useState(false);
+
+  useEffect(() => setvisibleToast(false), [visibleToast]);
+
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -57,12 +77,11 @@ export default function LoginPage({ navigation }) {
 
     let data = qs.stringify({
       phone: mobile,
-      // deviceId: expoPushToken
     });
     console.log(data, ">>>>>>>.data")
     let config = {
       method: 'patch',
-      url: 'https://ac0231232ab1.ngrok.io/login',
+      url: '/login',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -71,6 +90,7 @@ export default function LoginPage({ navigation }) {
 
     axios(config)
       .then(function (response) {
+        setvisibleToast(true)
         console.log('masuk login axios client >>>>>>>>>>>>>>>>>>')
         toVerify()
         // navigation.navigate('VerifyPage')
@@ -90,17 +110,19 @@ export default function LoginPage({ navigation }) {
       params: { mobile:mobile, expoPushToken: expoPushToken}
     })
   }
-  //navigation.navigate('LoginPage')
+
   function toRegister() {
     navigation.navigate('RegisterPage')
     // navigation.navigate('VerifyPage', {
     //   params: { mobile:mobile }
     // })
-    
   }
+
+
   return (
     <View style={LoginScreenStyle.container}>
       <View style={LoginScreenStyle.header}>
+      <Toast visible={visibleToast} message="Check your otp sms" />
         <Image style={styles.img}
           source={require('../../assets/logo-removebg-preview-trimmed.png')}
         />
@@ -225,10 +247,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
-    // backgroundColor: '#1F3A93'
   },
   text: {
     color: 'blue',
     fontSize: 23
+  },
+  toast:{
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#888888",
+    padding: 8
   }
 })
