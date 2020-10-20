@@ -113,3 +113,36 @@ export const LoginScreenStyle = StyleSheet.create({
     fontWeight: 'bold'
   }
 })
+
+export const covidWidget = StyleSheet.create({
+  container: {
+    flex: 2,
+    marginHorizontal: 10,
+    borderRadius: 25,
+    backgroundColor: mainColor.white,
+    shadowColor: 'grey',
+    shadowOpacity: 0.7,
+    shadowRadius: 0.2
+  },
+  titleContainer: {
+    flex: 0.3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 5
+  },
+  bodyContainer: {
+    flex: 0.7,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    flexDirection: 'row'
+  },
+  contentBox: {
+    flex: 1,
+    width: windowWidth / 5,
+    height: windowWidth / 5,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    borderRadius: 25,
+    marginHorizontal: 5
+  }
+})

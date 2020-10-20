@@ -26,7 +26,8 @@ export const userRestaurant = (state = initState, action) => {
       return {
         ...state,
         restaurants: action.payload,
-        loading: false
+        loading: false,
+        error: null
       }
     }
     case FETCH_RESTAURANT_REJECTED: {
@@ -40,7 +41,8 @@ export const userRestaurant = (state = initState, action) => {
       return {
         ...state,
         restaurant: action.payload,
-        loading: false
+        loading: false,
+        error: null
       }
     }
     case CREATE_RESTAURANT_PENDING: {

@@ -15,6 +15,7 @@ import {
   TouchableRipple,
   Switch
 } from 'react-native-paper'
+import { Alert } from 'react-native'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { AuthContext } from '../components/context'
 import { useSelector, useDispatch } from 'react-redux'
@@ -25,6 +26,27 @@ export function DrawerContent ( props ) {
   const { logout } = React.useContext(AuthContext)
   const { user } = useSelector(state => state.userReducer)
   const { name, phone, isEmailVerify } = user
+
+  const handleLogout = () => {
+    Alert.alert(
+      "Logout",
+      "confirm to logout?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => {
+          dispatch(userLogout(phone))
+          setTimeout(() => {
+            logout()
+          }, 2000)
+        }}
+      ],
+      { cancelable: false }
+    );
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: mainColor.first }}>
@@ -86,11 +108,7 @@ export function DrawerContent ( props ) {
             />
           )}
           label="Logout"
-          onPress={() => {
-            // todo dispatch(userLogout)
-            dispatch(userLogout(phone))
-            logout()
-          }}
+          onPress={() => handleLogout()}
         />
       </Drawer.Section>
     </View>

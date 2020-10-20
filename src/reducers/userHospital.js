@@ -27,7 +27,8 @@ export const userHospital = (state = initState, action) => {
       return {
         ...state,
         hospitals: action.payload,
-        loading: false
+        loading: false,
+        error: null
       }
     }
     case FETCH_HOSPITAL_REJECTED: {
@@ -41,7 +42,8 @@ export const userHospital = (state = initState, action) => {
       return {
         ...state,
         hospital: action.payload,
-        loading: false
+        loading: false,
+        error: null
       }
     }
     case CREATE_HOSPITAL_PENDING: {
@@ -61,7 +63,8 @@ export const userHospital = (state = initState, action) => {
       return {
         ...state,
         restaurant: action.payload,
-        loading: false
+        loading: false,
+        error: null
       }
     }
     default: {
