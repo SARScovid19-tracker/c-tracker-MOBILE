@@ -196,7 +196,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 5
   },
   textInput: {
-    flex:1,
+    flex: 1,
     marginTop: Platform.os === 'ios' ? 0 : -12,
     paddingBottom: 8,
     paddingTop: 2,
@@ -204,7 +204,7 @@ export const styles = StyleSheet.create({
     color: '#666',
     fontSize: 16
   },
-  button:{
+  button: {
     alignItems: 'center',
     marginTop: 50
   },
