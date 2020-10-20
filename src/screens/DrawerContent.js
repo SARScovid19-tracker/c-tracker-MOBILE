@@ -16,8 +16,11 @@ import {
   Switch
 } from 'react-native-paper'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
+import { AuthContext } from '../components/context'
 
 export function DrawerContent ( props ) {
+  const { logout } = React.useContext(AuthContext)
+
   return (
     <View style={{ flex: 1, backgroundColor: mainColor.first }}>
       <DrawerContentScrollView {...props}>
@@ -77,8 +80,8 @@ export function DrawerContent ( props ) {
               size={size}
             />
           )}
-          label="Sign Out"
-          onPress={() => {props.navigation.navigate('login')}}
+          label="Logout"
+          onPress={() => {logout()}}
         />
       </Drawer.Section>
     </View>

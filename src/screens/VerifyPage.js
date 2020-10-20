@@ -9,11 +9,14 @@ import {
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Col, Grid } from 'react-native-easy-grid'
-import axios from 'axios'
+import axios from '../config/axios'
 import qs from 'qs'
 import { NavigationHelpersContext } from '@react-navigation/native'
 import { mainColor, secondColor, windowWidth } from '../styles/styles'
 // import { styles } from '../styles/styles'
+
+import { AuthContext } from '../components/context'
+
 
 //timer 10 menit
 // kalo udh 0.0 ada tombol request new otp
@@ -21,14 +24,17 @@ import { mainColor, secondColor, windowWidth } from '../styles/styles'
 export default function VerifyPage({ navigation, route }) {
   // onChangeText={(text) => setPhone(text)
   // console.log(route, ">>>>>>>>>>>>>>")
-  const [otp1, setOtp1] = useState(0)
-  const [otp2, setOtp2] = useState(0)
-  const [otp3, setOtp3] = useState(0)
-  const [otp4, setOtp4] = useState(0)
-  const [otp5, setOtp5] = useState(0)
-  const [otp6, setOtp6] = useState(0)
+  const [otp1, setOtp1] = useState('')
+  const [otp2, setOtp2] = useState('')
+  const [otp3, setOtp3] = useState('')
+  const [otp4, setOtp4] = useState('')
+  const [otp5, setOtp5] = useState('')
+  const [otp6, setOtp6] = useState('')
   const { mobile, expoPushToken } = route.params.params
   // console.log(mobile, ">>>>>>>>>>>>>>>>>>>> verify mobile")
+
+  // ! demo
+  const { login } = React.useContext(AuthContext)
 
   function onVerify() {
     let data = qs.stringify({
@@ -40,7 +46,7 @@ export default function VerifyPage({ navigation, route }) {
 
     let config = {
       method: 'post',
-      url: 'https://bc548962eca3.ngrok.io/verify',
+      url: '/verify',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -51,6 +57,7 @@ export default function VerifyPage({ navigation, route }) {
       .then(function (response) {
         console.log(response.data, '>>>>>>>>>>>>>.data berhasil verify')
         // toHome()
+        login(response.data)
       })
       .catch(function (error) {
         console.log(error, '>>>>>>>>>>>>>> err in verify client')
@@ -64,23 +71,6 @@ export default function VerifyPage({ navigation, route }) {
       //deviceId: expoPushToken
     })
     console.log(dataNewOtp, '>>>>>>>.data new otp')
-
-    // let logout = {
-    //   method: 'patch',
-    //   url: 'https://bc548962eca3.ngrok.io/logout',
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   },
-    //   data: dataNewOtp
-    // };
-
-    // axios(logout)
-    //   .then(function (response) {
-    //     console.log(JSON.stringify(response.data))
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
 
     let config = {
       method: 'patch',
@@ -120,7 +110,7 @@ export default function VerifyPage({ navigation, route }) {
             maxLength={1}
             keyboardType="number-pad"
             style={styles.box}
-            onChangeText={text => {
+            onChangeText={(text) => {
               setOtp1(text)
               if(otp1 >= 0 && otp1 <= 9) {
                 otp2ref.current.focus()
@@ -200,7 +190,8 @@ export default function VerifyPage({ navigation, route }) {
           title="Verify"
           mode="contained"
           color={secondColor.blue}
-          onPress={() => onVerify()}>
+          onPress={() => onVerify()}
+        >
           Verify
         </Button>
         {/* </View> */}
