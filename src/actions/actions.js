@@ -1,4 +1,4 @@
-import axios from '../config/axios'
+import axiosInstance from '../config/axios'
 import qs from 'qs'
 import { USER_LOGIN, USER_LOGOUT } from './action-type'
 import axios from 'axios'
@@ -16,7 +16,7 @@ export const userLogout = phone => {
       phone
     })
     try {
-      await axios({
+      await axiosInstance({
         url: '/logout',
         method: 'PATCH',
         data: phoneQs,
