@@ -13,7 +13,12 @@ export default function QrCodeScanner ({ navigation }) {
   const [scanned, setScanned] = useState(false);
   const [isRestaurantModalVisible, setIsRestaurantModalVisible] = useState(false)
   const [isHospitalModalVisible, setIsHospitalModalVisible] = useState(false)
-  const [id, setId] = useState(0)
+  const [data, setData] = useState({
+    id: 0,
+    address: '',
+    name: '',
+    email: ''
+  })
 
   useEffect(() => {
     (async () => {
@@ -24,24 +29,25 @@ export default function QrCodeScanner ({ navigation }) {
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    const parsedData = data.split(',')
-    switch(parsedData[0].toLowerCase()) {
-      case 'hospital': {
-        toggleHospitalModal()
-        setId(parsedData[1])
-        console.log(parsedData[1])
-        break
-      }
-      case 'restaurant': {
-        toggleRestaurantModal()
-        setId(parsedData[1])
-        break
-      }
-      default: {
-        alert('error qr code')
-        setScanned(false)
-      }
-    }
+    console.log(JSON.parse(data))
+    // todo => tunggi rifky selesai generate QR Code
+    // const parsedData = data.split(',')
+    // switch(parsedData[0].toLowerCase()) {
+    //   case 'hospital': {
+    //     toggleHospitalModal()
+    //     setData(data)
+    //     break
+    //   }
+    //   case 'restaurant': {
+    //     toggleRestaurantModal()
+    //     setData(data)
+    //     break
+    //   }
+    //   default: {
+    //     alert('error qr code')
+    //     setScanned(false)
+    //   }
+    // }
   };
 
   const toggleRestaurantModal = () => setIsRestaurantModalVisible(!isRestaurantModalVisible)
@@ -98,14 +104,14 @@ export default function QrCodeScanner ({ navigation }) {
         isVisible={isRestaurantModalVisible}
         toggleModal={toggleRestaurantModal}
         isDone={backToHome}
-        id={id}
+        data={data}
       />}
       {isHospitalModalVisible &&
       <HospitalCheckInModal
         isVisible={isHospitalModalVisible}
         toggleModal={toggleHospitalModal}
         isDone={backToHome}
-        id={id}
+        data={data}
       />}
     </>
   )

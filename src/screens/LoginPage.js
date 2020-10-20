@@ -20,7 +20,6 @@ import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
 import { LoginScreenStyle, mainColor, secondColor } from '../styles/styles'
 
-
 export default function LoginPage({ navigation }) {
 
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -63,7 +62,7 @@ export default function LoginPage({ navigation }) {
     console.log(data, ">>>>>>>.data")
     let config = {
       method: 'patch',
-      url: 'https://f378486d8358.ngrok.io/login',
+      url: 'https://ac0231232ab1.ngrok.io/login',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -79,10 +78,10 @@ export default function LoginPage({ navigation }) {
       
       })
       .catch(function (error) {
-        console.log(error.response.data.errors[0],">>>>>>>>>>>>>>>>>>>> axios login");
+        console.log(error.response,">>>>>>>>>>>>>>>>>>>> axios login");
         Alert.alert(error.response.data.errors[0])
-      });
-
+      })
+      .catch(console.log)
   }
 
   function toVerify(){
@@ -139,7 +138,8 @@ export default function LoginPage({ navigation }) {
               dark={false}
               style={{ borderRadius: 30 }}
               color={secondColor.blue}
-              onPress={() => submitLogin()}
+              // onPress={() => submitLogin()}
+              onPress={() => toVerify()}
             >Login</Button>
          
             <Text style={{ textAlign: 'center', marginVertical: 10 }}>OR</Text>
