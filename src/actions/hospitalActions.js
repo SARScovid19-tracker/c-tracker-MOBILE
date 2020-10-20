@@ -44,9 +44,10 @@ export const fetchHospital = (userId) => {
         url: '/history/hospitals/' + userId,
         method: 'GET'
       })
+      console.log(result)
       dispatch(fetchHospitalFulfilled(result.data.history))
     } catch(error) {
-      console.log(error.response)
+      console.log(error)
       dispatch(fetchHospitalRejected(error))
     }
   }
@@ -97,6 +98,7 @@ export const createHospital = (userId, data) => {
         data: data
       })
       if (result) {
+        console.log(result.data)
         dispatch(fetchHospital(userId))
       }
     } catch (error) {

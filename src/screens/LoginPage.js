@@ -19,6 +19,8 @@ import { Button } from 'react-native-paper'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
 import { LoginScreenStyle, mainColor, secondColor } from '../styles/styles'
+import { useDispatch } from 'react-redux'
+import { userLogout } from '../actions/actions'
 
 
 
@@ -37,7 +39,7 @@ const Toast = ({ visible, message }) => {
 };
 
 export default function LoginPage({ navigation }) {
-
+  const dispatch = useDispatch()
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -49,6 +51,7 @@ export default function LoginPage({ navigation }) {
 
 
   useEffect(() => {
+    // dispatch(userLogout('+6285156295081'))
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -74,10 +77,11 @@ export default function LoginPage({ navigation }) {
     }else{
       mobile = phone
     }
-
+    
     let data = qs.stringify({
       phone: mobile,
     });
+    
     console.log(data, ">>>>>>>.data")
     let config = {
       method: 'patch',

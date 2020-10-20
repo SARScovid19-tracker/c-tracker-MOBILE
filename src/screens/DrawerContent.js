@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { mainColor } from '../styles/styles'
 import {
@@ -17,9 +17,14 @@ import {
 } from 'react-native-paper'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { AuthContext } from '../components/context'
+import { useSelector, useDispatch } from 'react-redux'
+import { userLogout } from '../actions/actions'
 
 export function DrawerContent ( props ) {
+  const dispatch = useDispatch()
   const { logout } = React.useContext(AuthContext)
+  const { user } = useSelector(state => state.userReducer)
+  const { name, phone, isEmailVerify } = user
 
   return (
     <View style={{ flex: 1, backgroundColor: mainColor.first }}>
@@ -34,14 +39,14 @@ export function DrawerContent ( props ) {
                 size={50}
               />
               <View style={{ marginLeft: 15 , flexDirection: 'column'}}>
-                <Text style={styles.title}>Name Will Here</Text>
-                <Caption style={styles.caption}>verified</Caption>
+                <Text style={styles.title}>{name && name}</Text>
+                <Caption style={styles.caption}>{isEmailVerify ? 'verified' : ''}</Caption>
               </View>
             </View>
             <View style={styles.col}>
                 <View style={styles.sectionCol}>
-                  <Paragraph style={[styles.Paragraph]}>Email</Paragraph>
-                  <Caption style={styles.caption}>email@domain.com</Caption>
+                  <Paragraph style={[styles.Paragraph]}>Phone</Paragraph>
+                  <Caption style={styles.caption}>{phone && phone}</Caption>
                 </View>
             </View>
           </View>
@@ -81,7 +86,11 @@ export function DrawerContent ( props ) {
             />
           )}
           label="Logout"
-          onPress={() => {logout()}}
+          onPress={() => {
+            // todo dispatch(userLogout)
+            dispatch(userLogout(phone))
+            logout()
+          }}
         />
       </Drawer.Section>
     </View>

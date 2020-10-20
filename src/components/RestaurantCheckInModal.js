@@ -8,15 +8,13 @@ import { fetchOneRestaurant, createRestaurant } from '../actions/restaurantActio
 
 export default function RestaurantModal (props) {
   const dispatch = useDispatch()
-  const data = useSelector(state => state.userRestaurant)
-  const { restaurant, loading, error } = data
+  const userId = useSelector(state => state.userReducer.user.id)
 
-  React.useEffect(() => {
-    dispatch(fetchOneRestaurant(props.id))
-  }, [dispatch])
-
-  const checkedIn = (userId) => {
-    dispatch(createRestaurant(userId, { userId, restaurantId: props.id }))
+  const checkedIn = () => {
+    console.log(' userid: ' , userId, ' hospitalId: ', Number(props.data.restaurantId))
+    setTimeout(() => {
+      dispatch(createRestaurant(userId, { userId, restaurantId: props.data.restaurantId }))
+    }, 2000)
     props.isDone()
   }
 
@@ -46,9 +44,8 @@ export default function RestaurantModal (props) {
         >
           <View style={{ flex: 1, justifyContent: 'space-evenly', alignItems: 'center' }}>
             <Text>Restaurant</Text>
-            <Text>{!loading && restaurant.name}</Text>
-            <Text>{!loading && restaurant.address}</Text>
-            {error && <Text>{JSON.stringify(error)}</Text>}
+            <Text>{props.isVisible && props.data.name}</Text>
+            <Text>{props.isVisible && props.data.address}</Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch' }}>
             <Button
@@ -56,7 +53,7 @@ export default function RestaurantModal (props) {
               marginHorizontal={5}
               borderRadius={5}
               color={secondColor.red}
-              onPress={() => checkedIn(1)}
+              onPress={() => checkedIn()}
             >Checked In</Button>
           </View>
         </View>

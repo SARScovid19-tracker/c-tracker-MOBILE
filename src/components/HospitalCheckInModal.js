@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, Alert } from 'react-native'
 import { Button } from 'react-native-paper'
 import Modal from 'react-native-modal'
 import { mainColor, secondColor, windowWidth } from '../styles/styles'
@@ -8,19 +8,19 @@ import { fetchOneHospital, createHospital } from '../actions/hospitalActions'
 
 export default props => {
   const dispatch = useDispatch()
-  const data = useSelector(state => state.userHospital)
-  const { hospital, loading, error } = data
+  const userId = useSelector(state => state.userReducer.user.id)
 
-  React.useEffect(() => {
-    dispatch(fetchOneHospital(props.id))
-  }, [dispatch])
-
-  const submitTest = (testType) => {
-    dispatch(createHospital(3, {
-      userId: 3,
-      hospitalId: typeof props.id === 'string' ? Number(props.id) : props.id,
-      testingType: testType
-    }))
+  const submitTest = testType => {
+    console.log(testType, ' userid: ' , userId, ' hospitalId: ', Number(props.data.hospitalId))
+    setTimeout(() => {
+      dispatch(
+        createHospital(userId, {
+          userId: userId,
+          hospitalId: Number(props.data.hospitalId),
+          testingType: testType
+        })
+      )
+    }, 2000)
     props.isDone()
   }
 
@@ -44,26 +44,45 @@ export default props => {
             backgroundColor: mainColor.first
           }}
         >
-          <View style={{ flex: 1.7, justifyContent: 'space-evenly', alignItems: 'center' }}>
-            <Text style={{ fontSize: 19 }}>{!loading && hospital.name}</Text>
-            <Text>{!loading && hospital.address}</Text>
+          <View
+            style={{
+              flex: 1.7,
+              justifyContent: 'space-evenly',
+              alignItems: 'center'
+            }}
+          >
+            <Text style={{ fontSize: 19 }}>
+              {props.isVisible && props.data.name}
+            </Text>
+            <Text>{props.isVisible && props.data.address}</Text>
             <Text>Choose which test you'll take!</Text>
           </View>
-          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end' }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'flex-end'
+            }}
+          >
             <Button
               mode="contained"
               marginHorizontal={5}
               borderRadius={5}
               color={secondColor.blue}
-              onPress={() => submitTest('rapid')}
-            >Rapid Test</Button>
+              onPress={() => submitTest('Rapid')}
+            >
+              Rapid Test
+            </Button>
             <Button
               mode="contained"
               marginHorizontal={5}
               borderRadius={5}
               color={secondColor.yellow}
-              onPress={() => submitTest('swab')}
-            >Swab Test</Button>
+              onPress={() => submitTest('Swab')}
+            >
+              Swab Test
+            </Button>
           </View>
         </View>
       </Modal>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import { qrCodeStyle, windowHeight, windowWidth, secondColor } from '../styles/styles'
+import { qrCodeStyle, windowHeight, windowWidth, secondColor, mainColor } from '../styles/styles'
 import RestaurantCheckInModal from '../components/RestaurantCheckInModal'
 import { useDispatch } from 'react-redux'
 import HospitalCheckInModal from '../components/HospitalCheckInModal'
@@ -13,12 +13,7 @@ export default function QrCodeScanner ({ navigation }) {
   const [scanned, setScanned] = useState(false);
   const [isRestaurantModalVisible, setIsRestaurantModalVisible] = useState(false)
   const [isHospitalModalVisible, setIsHospitalModalVisible] = useState(false)
-  const [data, setData] = useState({
-    id: 0,
-    address: '',
-    name: '',
-    email: ''
-  })
+  const [data, setData] = useState({})
 
   useEffect(() => {
     (async () => {
@@ -30,24 +25,24 @@ export default function QrCodeScanner ({ navigation }) {
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     console.log(JSON.parse(data))
+    scannedData = JSON.parse(data)
     // todo => tunggi rifky selesai generate QR Code
-    // const parsedData = data.split(',')
-    // switch(parsedData[0].toLowerCase()) {
-    //   case 'hospital': {
-    //     toggleHospitalModal()
-    //     setData(data)
-    //     break
-    //   }
-    //   case 'restaurant': {
-    //     toggleRestaurantModal()
-    //     setData(data)
-    //     break
-    //   }
-    //   default: {
-    //     alert('error qr code')
-    //     setScanned(false)
-    //   }
-    // }
+    switch(scannedData.type) {
+      case 'hospital': {
+        toggleHospitalModal()
+        setData(scannedData)
+        break
+      }
+      case 'restaurant': {
+        toggleRestaurantModal()
+        setData(scannedData)
+        break
+      }
+      default: {
+        alert('error qr code')
+        setScanned(false)
+      }
+    }
   };
 
   const toggleRestaurantModal = () => setIsRestaurantModalVisible(!isRestaurantModalVisible)
@@ -64,13 +59,13 @@ export default function QrCodeScanner ({ navigation }) {
 
 
   return (
-    <>
-      <BarCodeScanner
+    <View style={{ flex: 1, backgroundColor: mainColor.third }}>
+      { !isRestaurantModalVisible && !isHospitalModalVisible && <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={[StyleSheet.absoluteFill,qrCodeStyle.container]}
         type={'back'}
         barCodeTypes={'qr'}
-      />
+      />}
       <View style={{
         flex: 1,
         justifyContent: scanned ? 'flex-end' : 'center',
@@ -113,6 +108,21 @@ export default function QrCodeScanner ({ navigation }) {
         isDone={backToHome}
         data={data}
       />}
-    </>
+    </View>
   )
 }
+
+// Object {
+//   "address": "Plaza Asia, Bogor, Jawa Barat",
+//   "email": "solariye.management@yahoo.com",
+//   "name": "Solariye Plaza Asia",
+//   "restaurantId": "1",
+//   "type": "restaurant",
+// }
+// Object {
+//   "address": "Bogor, Jawa Barat",
+//   "email": "rsmitrakerja.admin@yahoo.com",
+//   "hospitalId": "1",
+//   "name": "RS Mitra Kerja",
+//   "type": "hospital",
+// }
