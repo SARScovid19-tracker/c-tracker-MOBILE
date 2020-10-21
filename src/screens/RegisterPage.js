@@ -19,6 +19,7 @@ import axios from '../config/axios'
 import qs from 'qs'
 import Constants from "expo-constants";
 import { LinearGradient } from 'expo-linear-gradient'
+import * as Animatable from 'react-native-animatable'
 
 
 const Toast = ({ visible, message }) => {
@@ -40,12 +41,14 @@ export default function RegisterPage({ navigation }) {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [nik, setNik] = useState(0)
+  const [submitLoginLoading, setSubmitLoginLoading] = useState(false)
   const [visibleToast, setvisibleToast] = useState(false);
   const [loading, setLoading] = useState(false)
 
   useEffect(() => setvisibleToast(false), [visibleToast]);
 
-  async function submitRegister({ navigation }) {
+  async function submitRegister() {
+    setSubmitLoginLoading(true)
     let mobile = ''
     if (phone.startsWith('0')) {
       let temp = phone.substring(1, phone.length)
@@ -64,32 +67,44 @@ export default function RegisterPage({ navigation }) {
       }
       // tambahin alert untk cek email setelah berhasul register
       console.log(data, '<<<< data register')
+      // setTimeout(() => {
       axios
         .post('/register', qs.stringify(data), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' }
         })
         .then(function (res) {
+          setSubmitLoginLoading(false)
+          // setLoading(true)
           setvisibleToast(true)
-          Alert.alert('Please verify your email')
+          toLogin()
+          // Alert.alert('Please verify your email')
           console.log(`RESP: ${res.data}`)
           setLoading(false)
         })
         .catch(function (error) {
           setLoading(false)
+          setSubmitLoginLoading(false)
+          Alert.alert(error.response.data.errors)
           console.log(`ERR: ${error.response.data.errors},>>>>>>>>>>>>>> register err axuos`)
         })
-      navigation.navigate('LoginPage')
+      //}, 2000)
+
     } else {
+      setSubmitLoginLoading(false)
       if (name === '') {
         Alert.alert('Name must be filled in!')
       } else if (email === '') {
         Alert.alert('Email must be filled in!')
       } else if (phone === '') {
         Alert.alert('phone must be filled in!')
-      } else if (nik > 7 || nik === '') {
+      } else if (nik < 6 || nik === '') {
         Alert.alert('Input your first six number NIK')
       }
     }
+  }
+  function toLogin(){
+    console.log('funct register page to login triggered')
+    navigation.navigate('LoginPage')
   }
 
   return (
@@ -105,12 +120,14 @@ export default function RegisterPage({ navigation }) {
           height: windowHeight,
         }}
       />
-      <View style={styles.header}>
+      <Toast  visible={visibleToast} message="Succesfully Registered, please verify your email!" />
+      <Animatable.View style={styles.header} animation="bounceIn">
         <Image
+          animation="bounceIn"
           style={styles.img}
           source={require('../assets/logo-removebg-preview-trimmed.png')}
         />
-      </View>
+      </Animatable.View>
       <View style={styles.footer}>
         <Text style={styles.text_footer}>Name</Text>
         <View style={styles.action}>
@@ -277,7 +294,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: "#888888",
-    padding: 8
+    backgroundColor: "#FF6F00",
+    padding: 15
   }
 })

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Text,
   View,
   TextInput,
   StyleSheet,
   Alert,
   ToastAndroid,
-  KeyboardAvoidingView
+  Image,
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Col, Grid } from 'react-native-easy-grid'
@@ -24,7 +23,7 @@ const Toast = ({ visible, message }) => {
     ToastAndroid.showWithGravityAndOffset(
       message,
       ToastAndroid.LONG,
-      ToastAndroid.TOP,
+      ToastAndroid.CENTER,
       25,
       50
     );
@@ -136,6 +135,13 @@ export default function VerifyPage({ navigation, route }) {
 
   return (
     <View style={styles.bigBox}>
+
+
+          <Image
+              style={styles.img}
+              source={require('../assets/verify-crop.png')}
+            />
+
       <View style={styles.mediumBox}>
       <Toast visible={visibleToast} message="You're verified!" />
           <TextInput
@@ -229,6 +235,7 @@ export default function VerifyPage({ navigation, route }) {
         >
           Verify
         </Button>
+        
         {/* </View> */}
       </View>
     </View>
@@ -239,16 +246,20 @@ const styles = StyleSheet.create({
   bigBox: {
     flex: 1,
     padding: 5,
+    marginTop: 50,
     justifyContent: 'center',
+    // backgroundColor: 'green',
     alignItems: 'center'
   },
   mediumBox: {
-    flex: 1.2,
+    flex: 0.2,
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-evenly',
     alignSelf: 'stretch',
-    paddingBottom: 10
+    // backgroundColor: 'red',
+    paddingBottom: 10,
+    marginTop: 25
   },
   smMedBox: {
     flex: 1,
@@ -281,5 +292,17 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#888888",
     padding: 8
+  },
+  img: {
+    // width: 400,
+    // height: 400,
+    height: windowWidth ,
+    width: windowWidth ,
+    resizeMode: 'contain',
+    flex: 0.7,
+    margin: 10,
+    // backgroundColor: 'blue',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   }
 })

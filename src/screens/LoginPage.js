@@ -32,7 +32,7 @@ const Toast = ({ visible, message }) => {
     ToastAndroid.showWithGravityAndOffset(
       message,
       ToastAndroid.LONG,
-      ToastAndroid.TOP,
+      ToastAndroid.CENTER,
       25,
       50
     );
@@ -107,9 +107,9 @@ export default function LoginPage({ navigation }) {
       })
       .catch(function (error) {
         setSubmitLoginLoading(false)
-        console.log(error.response,">>>>>>>>>>>>>>>>>>>> axios login");
-        alert('login error!')
-        // Alert.alert(error.response.data.errors[0])
+        //console.log(error.response,">>>>>>>>>>>>>>>>>>>> axios login");
+        // alert('login error!')
+        Alert.alert(error.response.data.errors[0])
       })
       .catch(console.log)
   }
