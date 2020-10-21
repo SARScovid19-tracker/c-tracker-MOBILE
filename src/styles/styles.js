@@ -22,13 +22,17 @@ export const secondColor = {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: mainColor.first
   },
   header: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 10
+    paddingTop: 10,
+    backgroundColor: '#CAEFB1',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25
   },
   footer: {
     flex: 4,
@@ -54,14 +58,14 @@ export const qrCodeStyle = StyleSheet.create({
 export const LoginScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: mainColor.white,
+    backgroundColor: '#ABD98B'
   },
   header: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingBottom: 50
+
   },
   footer: {
     flex: 1,
@@ -73,8 +77,8 @@ export const LoginScreenStyle = StyleSheet.create({
   },
   text_header: {
     color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold'
+    fontSize: 35,
+    fontWeight: '600',
   },
   text_footer: {
     color: mainColor.third,
