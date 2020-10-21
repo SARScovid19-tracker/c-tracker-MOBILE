@@ -38,10 +38,10 @@ export function DrawerContent ( props ) {
           style: "cancel"
         },
         { text: "OK", onPress: () => {
-          dispatch(userLogout(phone))
           setTimeout(() => {
-            logout()
+            dispatch(userLogout(phone))
           }, 2000)
+          logout()
         }}
       ],
       { cancelable: false }

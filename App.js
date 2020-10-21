@@ -68,14 +68,15 @@ export default function App() {
   }), [])
 
   React.useEffect(() => {
+    let userToken = null;
     setTimeout(async() => {
-      let userToken = null;
       try {
         const getUserToken = await AsyncStorage.getItem('userToken')
         userToken = getUserToken
       } catch (error) { console.log(error) }
-      dispatch({ type: 'USER_RETRIEVE', payload: userToken })
     }, 1000)
+    dispatch({ type: 'USER_RETRIEVE', payload: userToken })
+    console.log('from app use effect')
   }, [])
 
   if (authState.loading) {
