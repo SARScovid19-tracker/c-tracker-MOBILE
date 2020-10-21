@@ -18,7 +18,7 @@ import {
 import { Button } from 'react-native-paper'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
-import { LoginScreenStyle, mainColor, secondColor } from '../styles/styles'
+import { LoginScreenStyle, mainColor, secondColor, windowWidth } from '../styles/styles'
 import { useDispatch } from 'react-redux'
 import { userLogout } from '../actions/actions'
 
@@ -46,8 +46,9 @@ export default function LoginPage({ navigation }) {
   const responseListener = useRef();
   const [phone, setPhone] = useState('');
   const [visibleToast, setvisibleToast] = useState(false);
+  const [submitLoginLoading, setSubmitLoginLoading] = useState(false)
 
-  useEffect(() => setvisibleToast(false), [visibleToast]);
+  // useEffect(() => setvisibleToast(false), [visibleToast]);
 
 
   useEffect(() => {
@@ -71,17 +72,16 @@ export default function LoginPage({ navigation }) {
   let mobile = "";
   let temp = phone.substring(1, phone.length);
   function submitLogin() {
+    setSubmitLoginLoading(true)
     if (phone.startsWith("0")) {
       mobile = "+62" + temp;
       console.log(mobile, "<>>>>>>>>>>>> phone to +62");
     }else{
       mobile = phone
     }
-    
     let data = qs.stringify({
       phone: mobile,
     });
-    
     console.log(data, ">>>>>>>.data")
     let config = {
       method: 'patch',
@@ -94,15 +94,17 @@ export default function LoginPage({ navigation }) {
 
     axios(config)
       .then(function (response) {
+        setSubmitLoginLoading(false)
         setvisibleToast(true)
         console.log('masuk login axios client >>>>>>>>>>>>>>>>>>')
         toVerify()
         // navigation.navigate('VerifyPage')
         console.log(JSON.stringify(response.data));
-      
       })
       .catch(function (error) {
+        setSubmitLoginLoading(false)
         console.log(error.response,">>>>>>>>>>>>>>>>>>>> axios login");
+        alert('login error!')
         // Alert.alert(error.response.data.errors[0])
       })
       .catch(console.log)
@@ -125,10 +127,10 @@ export default function LoginPage({ navigation }) {
 
   return (
     <View style={LoginScreenStyle.container}>
-      <View style={LoginScreenStyle.header}>
       <Toast visible={visibleToast} message="Check your otp sms" />
+      <View style={LoginScreenStyle.header}>
         <Image style={styles.img}
-          source={require('../../assets/logo-removebg-preview-trimmed.png')}
+          source={require('../assets/logo-removebg-preview-trimmed.png')}
         />
         {/* <Image style={styles.imgNormal}
         source={require('../../assets/new-normal.jpg')}
@@ -164,6 +166,7 @@ export default function LoginPage({ navigation }) {
               dark={false}
               style={{ borderRadius: 30 }}
               color={secondColor.blue}
+              loading={submitLoginLoading}
               onPress={() => submitLogin()}
               // onPress={() => toVerify()}
             >Login</Button>
@@ -232,8 +235,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'blue'
   },
   img: {
-    width: 300,
-    height: 400,
+    width: windowWidth / 2,
     resizeMode: 'contain'
   },
   imgNormal: {

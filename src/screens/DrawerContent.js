@@ -47,7 +47,7 @@ export function DrawerContent ( props ) {
       { cancelable: false }
     );
   }
-console.log(status,">>>>>>> drawer content")
+
   return (
     <View style={{ flex: 1, backgroundColor: mainColor.first }}>
       <DrawerContentScrollView {...props}>

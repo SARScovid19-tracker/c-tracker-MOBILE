@@ -48,6 +48,8 @@ export default function VerifyPage({ navigation, route }) {
   const [otp5, setOtp5] = useState('')
   const [otp6, setOtp6] = useState('')
   const { mobile, expoPushToken } = route.params.params
+  const [loading, setLoading] = useState(false)
+  const [reqNewLoading, setReqNewLoading] = useState(false)
 
   const [visibleToast, setvisibleToast] = useState(false);
 
@@ -57,6 +59,7 @@ export default function VerifyPage({ navigation, route }) {
   const { login } = React.useContext(AuthContext)
 
   function onVerify() {
+    setLoading(true)
     let data = qs.stringify({
       phone: mobile,
       code: `${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`,
@@ -71,25 +74,29 @@ export default function VerifyPage({ navigation, route }) {
       },
       data: data
     }
-
-    axios(config)
-      .then(function (response) {
-        setvisibleToast(true)
-        console.log(response.data, '>>>>>>>>>>>>>.data berhasil verify')
-        // toHome()
-        dispatch({
-          type: 'USER_LOGIN',
-          payload: response.data
+    setTimeout(() => {
+      axios(config)
+        .then(function (response) {
+          setvisibleToast(true)
+          setLoading(false)
+          console.log(response.data, '>>>>>>>>>>>>>.data berhasil verify')
+          // toHome()
+          dispatch({
+            type: 'USER_LOGIN',
+            payload: response.data
+          })
+          login(response.data.token)
         })
-        login(response.data.token)
-      })
-      .catch(function (error) {
-        console.log(error, '>>>>>>>>>>>>>> err in verify client')
-        Alert.alert(error.response.data.errors)
-      })
+        .catch(function (error) {
+          setLoading(false)
+          console.log(error, '>>>>>>>>>>>>>> err in verify client')
+          Alert.alert(error.response.data.errors)
+        })
+    }, 2000)
   }
 
   function onNewOtp() {
+    setReqNewLoading(true)
     let dataNewOtp = qs.stringify({
       phone: mobile
     })
@@ -106,10 +113,12 @@ export default function VerifyPage({ navigation, route }) {
 
     axios(config)
       .then(function (response) {
+        setReqNewLoading(false)
         console.log('masuk req new otp axios  >>>>>>>>>>>>>>>>>>')
         console.log(JSON.stringify(response))
       })
       .catch(function (error) {
+        setLoading(false)
         console.log(error, '>>>>>>>>>>>>>>>>>>>> axios new otp')
       })
   }
@@ -202,7 +211,9 @@ export default function VerifyPage({ navigation, route }) {
         <Button
           title="New Otp"
           color="#000"
-          onPress={() => onNewOtp()}>
+          loading={reqNewLoading}
+          onPress={() => onNewOtp()}
+        >
           Request new OTP
         </Button>
         {/* </View> */}
@@ -211,6 +222,7 @@ export default function VerifyPage({ navigation, route }) {
           icon="account-arrow-right"
           title="Verify"
           mode="contained"
+          loading={loading}
           color={secondColor.blue}
           onPress={() => onVerify()}
         >

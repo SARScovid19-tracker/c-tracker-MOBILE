@@ -89,11 +89,11 @@ export default function RegisterPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-        <Toast visible={visibleToast} message="Succesfully Registered" />
+      <Toast visible={visibleToast} message="Succesfully Registered" />
       <View style={styles.header}>
         <Image
           style={styles.img}
-          source={require('../../assets/logo-removebg-preview.png')}
+          source={require('../assets/logo-removebg-preview-trimmed.png')}
         />
       </View>
       <View style={styles.footer}>
@@ -181,14 +181,13 @@ export default function RegisterPage({ navigation }) {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: mainColor.white,
+    backgroundColor: '#ABD98B',
   },
   header: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    flex: 2,
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingBottom: 50
   },
   footer: {
     flex: 4,
@@ -201,7 +200,7 @@ export const styles = StyleSheet.create({
   text_header: {
     color: '#fff',
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   text_footer: {
     color: mainColor.third,
@@ -241,9 +240,8 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   img: {
-    width: 200,
-    height: 50,
-    resizeMode: 'cover'
+    width: windowWidth / 2,
+    resizeMode: 'contain',
   },
   toast:{
     flex: 1,
