@@ -132,7 +132,8 @@ export const covidWidget = StyleSheet.create({
     flex: 0.3,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 5
+    paddingVertical: 5,
+    fontSize: 16,
   },
   bodyContainer: {
     flex: 0.7,

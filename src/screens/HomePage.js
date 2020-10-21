@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
-  StyleSheet
+  StyleSheet,
 } from 'react-native'
 import moment from 'moment'
 import { Button } from 'react-native-paper'
@@ -31,7 +31,7 @@ export default function HomePage({ route, navigation }) {
     let phoneNumber = ''
 
     if (Platform.OS === 'android') {
-      phoneNumber = 'tel:${+6281236001528}'
+      phoneNumber = 'tel:${119}'
     }
     // else {
     //   phoneNumber = 'telprompt:${1234567890}';
@@ -75,7 +75,7 @@ export default function HomePage({ route, navigation }) {
               <Text>{dataCovid.meninggal}</Text>
             </View>
           </View>
-        </View>
+</View>
         <View
           style={{
             ...styles.footer,
