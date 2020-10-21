@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import moment from 'moment'
 import { Button } from 'react-native-paper'
-import { styles, mainColor, secondColor, covidWidget, windowWidth } from '../styles/styles'
+import { styles, mainColor, secondColor, covidWidget } from '../styles/styles'
 import { getDataCovid } from '../actions/actions'
 // import Ionicons from '@expo/vector-icons/Ionicons'
 // import Icons from '@expo/vector-icons/MaterialCommunityIcons'
@@ -20,7 +20,6 @@ import { getDataCovid } from '../actions/actions'
 export default function HomePage({ route, navigation }) {
   const dispatch = useDispatch()
   const dataCovid = useSelector(state => state.dataCovid.data)
-  const [loadingUserCheck, setLoadingUserCheck] = React.useState(false)
 
   useEffect(() => {
     dispatch(getDataCovid())
@@ -80,7 +79,7 @@ export default function HomePage({ route, navigation }) {
           style={{
             ...styles.footer,
             justifyContent: 'flex-end',
-            alignItems: 'center'
+            alignItems: 'stretch'
           }}
         >
           <Text></Text>
@@ -90,10 +89,6 @@ export default function HomePage({ route, navigation }) {
             mode="contained"
             color={secondColor.blue}
             onPress={() => navigation.navigate('QrCodeScanner')}
-            width={windowWidth / 2}
-            padding={10}
-            style={{ borderRadius: 20 }}
-            loading={loadingUserCheck}
           >
             Tap to Scan
           </Button>
@@ -111,9 +106,9 @@ const styles2 = StyleSheet.create({
   },
   button: {
     width: '80%',
-    padding: 10,
+    padding: 6,
     backgroundColor: '#FF6F00',
-    borderRadius: 25,
+    borderRadius: 7
   },
 
   TextStyle: {
