@@ -60,8 +60,8 @@ export function DrawerContent ( props ) {
                 }}
                 size={50}
               />
-              <View style={{ marginLeft: 15 , flexDirection: 'column'}}>
-                <Text style={styles.title}>{name && name}</Text>
+              <View style={{ marginLeft: 15 , flexDirection: 'column', fontSize: 16}}>
+                <Text style={styles.title}>{(name && name).toUpperCase()}</Text>
                 <Caption style={styles.caption}>{isEmailVerify ? 'verified' : ''}</Caption>
               </View>
             </View>

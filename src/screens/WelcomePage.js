@@ -15,7 +15,7 @@ export default function WelcomePage({ navigation }) {
       }}
       pages={[
         {
-          backgroundColor: '#fff',
+          backgroundColor: '#cceabb',
           image: (
             <Image
               style={styles.imgLogo}
@@ -30,7 +30,7 @@ export default function WelcomePage({ navigation }) {
           )
         },
         {
-          backgroundColor: '#fe6e58',
+          backgroundColor: '#3f3f44',
           image: (
             <Image
               style={styles.img}
@@ -46,7 +46,7 @@ export default function WelcomePage({ navigation }) {
             )
         },
         {
-          backgroundColor: '#999',
+          backgroundColor: '#fdcb9e',
           image: (
             <Image
               style={styles.img}
@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginHorizontal: "10%",
     lineHeight: 20,
-    color: 'rgba(255,255,255,0.7)'
+    color: 'black'
   }
 })
