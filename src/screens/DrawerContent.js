@@ -25,7 +25,7 @@ export function DrawerContent ( props ) {
   const dispatch = useDispatch()
   const { logout } = React.useContext(AuthContext)
   const { user } = useSelector(state => state.userReducer)
-  const { name, phone, isEmailVerify } = user
+  const { name, phone, isEmailVerify, status } = user
 
   const handleLogout = () => {
     Alert.alert(
@@ -47,7 +47,7 @@ export function DrawerContent ( props ) {
       { cancelable: false }
     );
   }
-
+console.log(status,">>>>>>> drawer content")
   return (
     <View style={{ flex: 1, backgroundColor: mainColor.first }}>
       <DrawerContentScrollView {...props}>
@@ -69,6 +69,11 @@ export function DrawerContent ( props ) {
                 <View style={styles.sectionCol}>
                   <Paragraph style={[styles.Paragraph]}>Phone</Paragraph>
                   <Caption style={styles.caption}>{phone && phone}</Caption>
+                </View>
+
+                <View style={styles.sectionCol}>
+                  <Paragraph style={[styles.Paragraph]}>Status</Paragraph>
+                  <Caption style={styles.caption}>{status && status}</Caption>
                 </View>
             </View>
           </View>

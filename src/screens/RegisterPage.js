@@ -19,6 +19,19 @@ import axios from '../config/axios'
 import qs from 'qs'
 import Constants from "expo-constants";
 
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.CENTER,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
 
 export default function RegisterPage({ navigation }) {
   const [name, setName] = useState('')
@@ -27,20 +40,8 @@ export default function RegisterPage({ navigation }) {
   const [nik, setNik] = useState(0)
   const [visibleToast, setvisibleToast] = useState(false);
 
-  const Toast = ({ visible, message }) => {
-    if (visible) {
-      ToastAndroid.showWithGravityAndOffset(
-        message,
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM,
-        25,
-        50
-      );
-      return null;
-    }
-    return null;
-  };
   useEffect(() => setvisibleToast(false), [visibleToast]);
+  
   async function submitRegister() {
     let mobile = ''
     if (phone.startsWith('0')) {
@@ -88,8 +89,8 @@ export default function RegisterPage({ navigation }) {
 
   return (
     <View style={styles.container}>
+        <Toast visible={visibleToast} message="Succesfully Registered" />
       <View style={styles.header}>
-      <Toast visible={visibleToast} message="Succesfully Registered" />
         <Image
           style={styles.img}
           source={require('../../assets/logo-removebg-preview.png')}
@@ -148,10 +149,10 @@ export default function RegisterPage({ navigation }) {
             color={mainColor.third}
             size={20}
           />
-          <TextInput
+          <TextInput //maxlength
             underlineColorAndroid="#bbb"
             placeholderTextColor="#999"
-            max={6}
+            maxLength={6}
             // coba cari set max nya 6
             keyboardType="phone-pad"
             style={styles.textInput}

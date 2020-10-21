@@ -9,6 +9,7 @@ import {
   Platform,
   StyleSheet
 } from 'react-native'
+import moment from 'moment'
 import { Button } from 'react-native-paper'
 import { styles, mainColor, secondColor, covidWidget } from '../styles/styles'
 import { getDataCovid } from '../actions/actions'
@@ -52,12 +53,12 @@ export default function HomePage({ route, navigation }) {
             activeOpacity={0.7}
             style={styles2.button}
           >
-            <Text style={styles2.TextStyle}>Emergency Call?</Text>
+            <Text style={styles2.TextStyle}>🏥  Emergency Call</Text>
           </TouchableOpacity>
         </View>
         <View style={covidWidget.container}>
           <View style={covidWidget.titleContainer}>
-            <Text>Data Covid {dataCovid.tanggal}</Text>
+            <Text>Data Covid { moment(dataCovid.tanggal).format('ll')}</Text>
           </View>
           <View style={covidWidget.bodyContainer}>
             <View style={{...covidWidget.contentBox, backgroundColor: mainColor.second}}>
