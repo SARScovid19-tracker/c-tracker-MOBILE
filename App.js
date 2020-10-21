@@ -91,7 +91,7 @@ export default function App() {
     <Provider store={store}>
       <AuthContext.Provider value={authContext}>
         <StatusBar barStyle="light-content" backgroundColor={ mainColor.third } />
-        <NavigationContainer>
+        <NavigationContainer >
         {/* condition for token, if no token then render authentication screens, 
         else redirect to home */}
         { !authState.token
