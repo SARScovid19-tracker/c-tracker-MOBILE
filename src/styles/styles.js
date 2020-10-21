@@ -26,13 +26,12 @@ export const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 10,
-    backgroundColor: '#CAEFB1',
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25
+    backgroundColor: '#fff',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20
   },
   footer: {
     flex: 4,
@@ -46,6 +45,10 @@ export const styles = StyleSheet.create({
     height: 50,
     resizeMode: 'contain'
   },
+  button: {
+    borderRadius: 30,
+    paddingVertical: 1,
+  }
 })
 
 export const qrCodeStyle = StyleSheet.create({
@@ -61,19 +64,20 @@ export const LoginScreenStyle = StyleSheet.create({
     backgroundColor: '#ABD98B'
   },
   header: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-
   },
   footer: {
     flex: 1,
     backgroundColor: mainColor.first,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderRadius: 30,
     paddingVertical: 20,
     paddingHorizontal: 30,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    
   },
   text_header: {
     color: '#fff',
@@ -90,16 +94,18 @@ export const LoginScreenStyle = StyleSheet.create({
     marginTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
-    paddingBottom: 5
+    paddingBottom: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   textInput: {
     flex:1,
     marginTop: Platform.os === 'ios' ? 0 : -12,
-    paddingBottom: 12,
-    paddingTop: 2,
+    paddingBottom: 10,
+    paddingTop: 10,
     paddingLeft: 10,
     color: '#666',
-    fontSize: 17
+    fontSize: 18,
   },
   button:{
     alignItems: 'center',

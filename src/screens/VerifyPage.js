@@ -86,6 +86,7 @@ export default function VerifyPage({ navigation, route }) {
             payload: response.data
           })
           login(response.data.token)
+          console.log(response.data, '<<<')
         })
         .catch(function (error) {
           setLoading(false)

@@ -12,13 +12,13 @@ const RootStack = createStackNavigator()
 
 const RootStackScreen = ({ navigation }) => (
   <>
-  <StatusBar hidden={true}  />
-  <RootStack.Navigator headerMode='none' initialRouteName="WelcomePage" screenOptions={{ animationEnabled: false }}>
-    <RootStack.Screen name="WelcomePage" component={WelcomePage} />
-    <RootStack.Screen name="LoginPage" component={LoginPage} />
-    <RootStack.Screen name="VerifyPage" component={VerifyPage} />
-    <RootStack.Screen name="RegisterPage" component={RegisterPage} />
-  </RootStack.Navigator>
+    <StatusBar hidden={true}  />
+    <RootStack.Navigator headerMode='none' screenOptions={{ animationEnabled: true }}>
+      <RootStack.Screen name="WelcomePage" component={WelcomePage} />
+      <RootStack.Screen name="LoginPage" component={LoginPage} />
+      <RootStack.Screen name="VerifyPage" component={VerifyPage} />
+      <RootStack.Screen name="RegisterPage" component={RegisterPage} />
+    </RootStack.Navigator>
   </>
 )
 

@@ -11,8 +11,9 @@ import {
 } from 'react-native'
 import moment from 'moment'
 import { Button } from 'react-native-paper'
-import { styles, mainColor, secondColor, covidWidget } from '../styles/styles'
+import { styles, mainColor, secondColor, covidWidget, windowHeight } from '../styles/styles'
 import { getDataCovid } from '../actions/actions'
+import { LinearGradient } from 'expo-linear-gradient'
 // import Ionicons from '@expo/vector-icons/Ionicons'
 // import Icons from '@expo/vector-icons/MaterialCommunityIcons'
 // import RestaurantCheckInModal from '../components/RestaurantCheckInModal'
@@ -41,6 +42,16 @@ export default function HomePage({ route, navigation }) {
   return (
     <>
       <View style={styles.container}>
+        <LinearGradient
+          colors={['#A1FFCE', '#FAFFD1']}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            height: windowHeight,
+          }}
+        />
         <View style={styles.header}>
           <Image
             style={styles.img}

@@ -16,11 +16,14 @@ import {
   Alert
 } from 'react-native'
 import { Button } from 'react-native-paper'
+import { Avatar } from 'react-native-elements'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
-import { LoginScreenStyle, mainColor, secondColor, windowWidth } from '../styles/styles'
+import { styles as mainStyles, LoginScreenStyle, mainColor, secondColor, windowWidth, windowHeight } from '../styles/styles'
 import { useDispatch } from 'react-redux'
 import { userLogout } from '../actions/actions'
+import { LinearGradient } from 'expo-linear-gradient'
+import * as Animatable from 'react-native-animatable'
 
 
 
@@ -52,18 +55,19 @@ export default function LoginPage({ navigation }) {
 
 
   useEffect(() => {
-    dispatch(userLogout('+6285156295081'))
+    // dispatch(userLogout('+6285156295081'))
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
+      console.log('listening notification')
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
     });
-
     return () => {
+      console.log('notificationlistener')
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
     };
@@ -128,15 +132,27 @@ export default function LoginPage({ navigation }) {
   return (
     <View style={LoginScreenStyle.container}>
       <Toast visible={visibleToast} message="Check your otp sms" />
+      <LinearGradient
+        colors={['#a8e063', '#56ab2f']}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: windowHeight,
+        }}
+      />
       <View style={LoginScreenStyle.header}>
-        <Image style={styles.img}
-          source={require('../assets/logo-removebg-preview-trimmed.png')}
+        <Animatable.Image
+          animation="bounceIn"
+          style={styles.img}
+          source={require('../assets/LoginImage.png')}
         />
-        {/* <Image style={styles.imgNormal}
-        source={require('../../assets/new-normal.jpg')}
-      /> */}
       </View>
-      <View style={LoginScreenStyle.footer}>
+      <Animatable.View
+        style={LoginScreenStyle.footer}
+        animation="fadeInUp"
+      >
           <Text style={LoginScreenStyle.text_footer}>Phone Number</Text>
           <View style={LoginScreenStyle.action}>
             <FontAwesome
@@ -164,26 +180,25 @@ export default function LoginPage({ navigation }) {
               title="Login"
               mode="contained"
               dark={false}
-              style={{ borderRadius: 30 }}
-              color={secondColor.blue}
+              style={{ ...mainStyles.button, marginBottom: 20 }}
+              color="#a8e063"
               loading={submitLoginLoading}
               onPress={() => submitLogin()}
               // onPress={() => toVerify()}
             >Login</Button>
-         
-            <Text style={{ textAlign: 'center', marginVertical: 10 }}>OR</Text>
+            {/* <Text style={{ textAlign: 'center', marginVertical: 10 }}>OR</Text> */}
             <Button
               icon="account-plus"
               title="Register"
               mode="outlined"
               dark={false}
-              style={{ borderRadius: 30 }}
-              color="blue"
+              style={{ ...mainStyles.button }}
+              color="#63a3e0"
               onPress={() => toRegister()}
             >Register</Button>
                {/* <VerifyPage mobile={mobile} /> */}
           </View>
-      </View>
+      </Animatable.View>
     </View>
   )
 }
@@ -235,7 +250,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'blue'
   },
   img: {
-    width: windowWidth / 2,
+    width: windowWidth / 1,
     resizeMode: 'contain'
   },
   imgNormal: {
