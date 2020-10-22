@@ -107,7 +107,7 @@ export default function LoginPage({ navigation }) {
       })
       .catch(function (error) {
         setSubmitLoginLoading(false)
-        //console.log(error.response,">>>>>>>>>>>>>>>>>>>> axios login");
+        console.log(error.response,">>>>>>>>>>>>>>>>>>>> axios login");
         // alert('login error!')
         Alert.alert(error.response.data.errors[0])
       })

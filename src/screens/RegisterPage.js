@@ -84,8 +84,8 @@ export default function RegisterPage({ navigation }) {
         .catch(function (error) {
           setLoading(false)
           setSubmitLoginLoading(false)
-          Alert.alert(error.response.data.errors)
-          console.log(`ERR: ${error.response.data.errors},>>>>>>>>>>>>>> register err axuos`)
+          Alert.alert(error.response.data ? error.response.data.errors : 'internal server error')
+          console.log(`ERR: ${error.response.data ? error.response.data.errors : error},>>>>>>>>>>>>>> register err axuos`)
         })
       //}, 2000)
 

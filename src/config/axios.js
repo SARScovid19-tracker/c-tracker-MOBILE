@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'https://e344fae6fa6c.ngrok.io',
+  baseURL: 'https://c-trackerr.herokuapp.com',
 })
 
 export default instance

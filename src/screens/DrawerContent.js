@@ -19,7 +19,7 @@ import { Alert } from 'react-native'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { AuthContext } from '../components/context'
 import { useSelector, useDispatch } from 'react-redux'
-import { userLogout } from '../actions/actions'
+import { userLogout, fetchOneUser } from '../actions/actions'
 import { LinearGradient } from 'expo-linear-gradient'
 
 
@@ -28,6 +28,12 @@ export function DrawerContent ( props ) {
   const { logout } = React.useContext(AuthContext)
   const { user } = useSelector(state => state.userReducer)
   const { name, phone, isEmailVerify, status } = user
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('>>>>>>>>>> alert from drawer use effect')
+    }, 4000)
+  }, [])
 
   const handleLogout = () => {
     Alert.alert(
