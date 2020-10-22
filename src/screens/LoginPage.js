@@ -55,7 +55,7 @@ export default function LoginPage({ navigation }) {
 
 
   useEffect(() => {
-    // dispatch(userLogout('+6285156295081'))
+    dispatch(userLogout('+6285156295081'))
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
