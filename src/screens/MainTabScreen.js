@@ -18,7 +18,7 @@ export default MainTabScreen  = ({ navigation }) => (
   <Tab.Navigator
     initialRouteName="HomePage"
     activeColor={mainColor.third}
-    inactiveColor={mainColor.third}
+    inactiveColor='#888'
     // barStyle={{ backgroundColor: mainColor.third }}
     shifting={true}
     style={{ size: 10 }}
@@ -28,7 +28,7 @@ export default MainTabScreen  = ({ navigation }) => (
       component={CreateNewPlaceholder}
       options={{
         tabBarLabel: 'Menu',
-        tabBarColor: mainColor.second,
+        tabBarColor: mainColor.first,
         tabBarIcon: ({ color }) => (
           <Icon name="ios-menu" color={color} size={22} />
         ),
@@ -46,7 +46,7 @@ export default MainTabScreen  = ({ navigation }) => (
       component={HomeStackScreen}
       options={{
         tabBarLabel: 'Home',
-        tabBarColor: mainColor.second,
+        tabBarColor: mainColor.first,
         tabBarIcon: ({ color }) => (
           <Icon name="ios-home" color={color} size={22} />
         ),
@@ -57,11 +57,10 @@ export default MainTabScreen  = ({ navigation }) => (
       component={HistoryStackScreen}
       options={{
         tabBarLabel: 'HistoryPage',
-        tabBarColor: mainColor.fourth,
+        tabBarColor: mainColor.first,
         tabBarIcon: ({ color }) => (
           <Icon name="ios-clock" color={color} size={22} />
         ),
-        tabBarBadge: true
       }}
     />
   </Tab.Navigator>
@@ -71,7 +70,7 @@ export const HomeStackScreen = ({ navigation }) => (
   <HomeStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: mainColor.second
+        backgroundColor: mainColor.first
       },
       headerTintColor: mainColor.third,
       headerTitleAlign: 'center',
@@ -93,14 +92,6 @@ export const HomeStackScreen = ({ navigation }) => (
       options={{
         title: 'scanning..',
         headerShown: true,
-      }}
-    />
-    <HomeStack.Screen
-      name="handleScanned"
-      component={HandleScanned}
-      options={{
-        title: 'processing',
-        headerShown: false,
       }}
     />
   </HomeStack.Navigator>

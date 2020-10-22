@@ -44,7 +44,7 @@ export const fetchHospital = (userId) => {
         url: '/history/hospitals/' + userId,
         method: 'GET'
       })
-      console.log(result)
+      // console.log(result)
       dispatch(fetchHospitalFulfilled(result.data.history))
     } catch(error) {
       console.log(error)
@@ -56,7 +56,7 @@ export const fetchHospital = (userId) => {
 export const fetchOneHospital = (id) => {
   return async (dispatch) => {
     try {
-      console.log(id, '>>>>>>>>>>. from dispatch')
+      // console.log(id, '>>>>>>>>>>. from dispatch')
       dispatch(fetchHospitalPending())
       const result = await axios({
         url: '/hospitals/' + id,
@@ -98,7 +98,7 @@ export const createHospital = (userId, data) => {
         data: data
       })
       if (result) {
-        console.log(result.data)
+        // console.log(result.data)
         dispatch(fetchHospital(userId))
       }
     } catch (error) {

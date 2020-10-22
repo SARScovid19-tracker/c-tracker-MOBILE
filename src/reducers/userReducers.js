@@ -19,6 +19,13 @@ export const userReducer = (state = initState, action) => {
         loading: false
       }
     }
+    case 'USER_FETCH': {
+      return {
+        ...state,
+        user: action.payload,
+        loading: false
+      }
+    }
     case 'USER_LOGOUT': {
       return {
         ...state,

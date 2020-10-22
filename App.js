@@ -55,13 +55,16 @@ export default function App() {
   const authContext = React.useMemo(() => ({
     login: async(payload) => {
       try {
-        await AsyncStorage.setItem('userToken', payload)
+        console.log(payload, '<<<<<<<<<< from use memo login')
+        await AsyncStorage.setItem('userToken', payload.token)
+        await AsyncStorage.setItem('userId', `${payload.id}`)
       } catch (error) { console.log(error) }
       dispatch({ type: 'USER_LOGIN', payload })
     },
     logout: async() => {
       try {
         await AsyncStorage.removeItem('userToken')
+        await AsyncStorage.removeItem('userId')
       } catch (error) { console.log(error.response) }
       dispatch({ type: 'USER_LOGOUT' })
     }
@@ -74,9 +77,9 @@ export default function App() {
         const getUserToken = await AsyncStorage.getItem('userToken')
         userToken = getUserToken
       } catch (error) { console.log(error) }
+      console.log(userToken, '<<<< from use effect login')
+      dispatch({ type: 'USER_RETRIEVE', payload: userToken })
     }, 1000)
-    dispatch({ type: 'USER_RETRIEVE', payload: userToken })
-    console.log('from app use effect')
   }, [])
 
   if (authState.loading) {
