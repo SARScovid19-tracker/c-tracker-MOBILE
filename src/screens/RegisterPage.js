@@ -109,7 +109,7 @@ export default function RegisterPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Toast visible={visibleToast} message="Succesfully Registered" />
+      {/* <Toast visible={visibleToast} message="Succesfully Registered" /> */}
       <LinearGradient
         colors={['#8DC26F', '#76b852']}
         style={{
@@ -201,7 +201,7 @@ export default function RegisterPage({ navigation }) {
             style={{ borderRadius: 30, marginBottom: 10 }}
             color="#a8e063"
             onPress={event => submitRegister(event)}
-            loading={loading}
+            loading={submitLoginLoading}
           >
             Register
           </Button>

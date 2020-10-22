@@ -5,10 +5,12 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Pressable,
   Linking,
   Platform,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native'
 import moment from 'moment'
 import { Button, FAB, Portal, Provider } from 'react-native-paper'
@@ -43,23 +45,24 @@ export default function HomePage({ route, navigation }) {
     setTimeout(async () => {
       try {
         const userId = await AsyncStorage.getItem('userId')
+        console.log('trigerred')
+        console.log(userId, ">>>>>>>>>>>>>>>>>>>.home")
         if (userId) dispatch(fetchOneUser(userId))
         console.log('triggered last match dispatch team')
-      } catch (error) {console.log(error)}
+      } catch (error) { console.log(error) }
     }, 4000)
   }, [])
   // console.log(dataCovid, '>>>>>>>> dataCovid di home')
 
   function dialCall() {
+    console.log('triger calll')
     let phoneNumber = ''
-
     if (Platform.OS === 'android') {
       phoneNumber = 'tel:${119}'
     }
     // else {
     //   phoneNumber = 'telprompt:${1234567890}';
     // }
-    alert('test')
     Linking.openURL(phoneNumber)
   }
 
@@ -67,6 +70,7 @@ export default function HomePage({ route, navigation }) {
     setQrLoading(true)
     try {
       const userId = await AsyncStorage.getItem('userId')
+      console.log(userId, ">>>>>>>>>> dari button qr")
       if (userId) {
         dispatch(fetchOneUser(userId))
         setTimeout(() => {
@@ -75,16 +79,16 @@ export default function HomePage({ route, navigation }) {
             navigation.navigate('QrCodeScanner')
           } else {
             setQrLoading(false)
-            alert('sorry anda positive')
+            Alert.alert(`When you're negative your apps will available.`)
           }
-        }, 4000)
+        }, 2000)
       } else {
         setQrLoading(false)
         alert(userId)
       }
     } catch (error) {
       setQrLoading(false)
-      alert('error')
+      Alert.alert('error')
     }
   }
 
@@ -179,7 +183,7 @@ export default function HomePage({ route, navigation }) {
             }}
           >
             <Image
-              style={{width: windowWidth - 50, resizeMode: 'contain', height: windowWidth - 50}}
+              style={{ width: windowWidth - 50, resizeMode: 'contain', height: windowWidth - 50 }}
               source={require('../assets/c-tracker-homescreen.png')}
             />
             <FAB
@@ -236,8 +240,10 @@ const styles2 = StyleSheet.create({
   button: {
     width: '80%',
     padding: 6,
-    backgroundColor: '#FF6F00',
-    borderRadius: 7
+    backgroundColor: mainColor.third,
+    // backgroundColor: '#FF6F00',
+    borderRadius: 20,
+
   },
 
   TextStyle: {
