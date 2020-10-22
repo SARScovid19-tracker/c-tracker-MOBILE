@@ -70,7 +70,7 @@ export const HomeStackScreen = ({ navigation }) => (
   <HomeStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: mainColor.second
+        backgroundColor: mainColor.first
       },
       headerTintColor: mainColor.third,
       headerTitleAlign: 'center',
@@ -92,14 +92,6 @@ export const HomeStackScreen = ({ navigation }) => (
       options={{
         title: 'scanning..',
         headerShown: true,
-      }}
-    />
-    <HomeStack.Screen
-      name="handleScanned"
-      component={HandleScanned}
-      options={{
-        title: 'processing',
-        headerShown: false,
       }}
     />
   </HomeStack.Navigator>

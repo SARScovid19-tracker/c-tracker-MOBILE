@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Alert,
   ToastAndroid,
-  Image,
+  Image
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Col, Grid } from 'react-native-easy-grid'
@@ -15,8 +15,7 @@ import { NavigationHelpersContext } from '@react-navigation/native'
 import { mainColor, secondColor, windowWidth } from '../styles/styles'
 import { useDispatch } from 'react-redux'
 import { AuthContext } from '../components/context'
-import Constants from "expo-constants";
-
+import Constants from 'expo-constants'
 
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -26,11 +25,11 @@ const Toast = ({ visible, message }) => {
       ToastAndroid.CENTER,
       25,
       50
-    );
-    return null;
+    )
+    return null
   }
-  return null;
-};
+  return null
+}
 
 //timer 10 menit
 // kalo udh 0.0 ada tombol request new otp
@@ -50,9 +49,9 @@ export default function VerifyPage({ navigation, route }) {
   const [loading, setLoading] = useState(false)
   const [reqNewLoading, setReqNewLoading] = useState(false)
 
-  const [visibleToast, setvisibleToast] = useState(false);
+  const [visibleToast, setvisibleToast] = useState(false)
 
-  useEffect(() => setvisibleToast(false), [visibleToast]);
+  useEffect(() => setvisibleToast(false), [visibleToast])
 
   // ! demo
   const { login } = React.useContext(AuthContext)
@@ -84,13 +83,13 @@ export default function VerifyPage({ navigation, route }) {
             type: 'USER_LOGIN',
             payload: response.data
           })
-          login(response.data.token)
-          console.log(response.data, '<<<')
+          login(response.data)
+          console.log(response.data, '<<<<<< response data untuk disimpan di async storage')
         })
         .catch(function (error) {
           setLoading(false)
-          console.log(error, '>>>>>>>>>>>>>> err in verify client')
-          Alert.alert(error.response.data.errors)
+          console.log(error.response, '>>>>>>>>>>>>>> err in verify client')
+          // Alert.alert(error.response.data.errors)
         })
     }, 2000)
   }
@@ -118,7 +117,7 @@ export default function VerifyPage({ navigation, route }) {
         console.log(JSON.stringify(response))
       })
       .catch(function (error) {
-        setLoading(false)
+        setReqNewLoading(false)
         console.log(error, '>>>>>>>>>>>>>>>>>>>> axios new otp')
       })
   }
@@ -135,82 +134,77 @@ export default function VerifyPage({ navigation, route }) {
 
   return (
     <View style={styles.bigBox}>
-
-
-          <Image
-              style={styles.img}
-              source={require('../assets/verify-crop.png')}
-            />
+      <Image style={styles.img} source={require('../assets/verify-crop.png')} />
 
       <View style={styles.mediumBox}>
-      <Toast visible={visibleToast} message="You're verified!" />
-          <TextInput
-            maxLength={1}
-            keyboardType="number-pad"
-            style={styles.box}
-            onChangeText={(text) => {
-              setOtp1(text)
-              if(otp1 >= 0 && otp1 <= 9) {
-                otp2ref.current.focus()
-              }
-            }}
-            ref={otp1ref}
-          />
-          <TextInput
-            maxLength={1}
-            keyboardType="number-pad"
-            style={styles.box}
-            onChangeText={text => {
-              setOtp2(text)
-              if(otp2 >= 0 && otp2 <= 9) {
-                otp3ref.current.focus()
-              }
-            }}
-            ref={otp2ref}
-          />
-          <TextInput
-            maxLength={1}
-            keyboardType="number-pad"
-            style={styles.box}
-            onChangeText={text => {
-              setOtp3(text)
-              if(otp3 >= 0 && otp3 <= 9) {
-                otp4ref.current.focus()
-              }
-            }}
-            ref={otp3ref}
-          />
-          <TextInput
-            maxLength={1}
-            keyboardType="number-pad"
-            style={styles.box}
-            onChangeText={text => {
-              setOtp4(text)
-              if(otp4 >= 0 && otp4 <= 9) {
-                otp5ref.current.focus()
-              }
-            }}
-            ref={otp4ref}
-          />
-          <TextInput
-            maxLength={1}
-            keyboardType="number-pad"
-            style={styles.box}
-            onChangeText={text => {
-              setOtp5(text)
-              if(otp5 >= 0 && otp5 <= 9) {
-                otp6ref.current.focus()
-              }
-            }}
-            ref={otp5ref}
-          />
-          <TextInput
-            maxLength={1}
-            keyboardType="number-pad"
-            style={styles.box}
-            onChangeText={text => setOtp6(text)}
-            ref={otp6ref}
-          />
+        <Toast visible={visibleToast} message="You're verified!" />
+        <TextInput
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
+          onChangeText={text => {
+            setOtp1(text)
+            if (otp1 >= 0 && otp1 <= 9) {
+              otp2ref.current.focus()
+            }
+          }}
+          ref={otp1ref}
+        />
+        <TextInput
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
+          onChangeText={text => {
+            setOtp2(text)
+            if (otp2 >= 0 && otp2 <= 9) {
+              otp3ref.current.focus()
+            }
+          }}
+          ref={otp2ref}
+        />
+        <TextInput
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
+          onChangeText={text => {
+            setOtp3(text)
+            if (otp3 >= 0 && otp3 <= 9) {
+              otp4ref.current.focus()
+            }
+          }}
+          ref={otp3ref}
+        />
+        <TextInput
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
+          onChangeText={text => {
+            setOtp4(text)
+            if (otp4 >= 0 && otp4 <= 9) {
+              otp5ref.current.focus()
+            }
+          }}
+          ref={otp4ref}
+        />
+        <TextInput
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
+          onChangeText={text => {
+            setOtp5(text)
+            if (otp5 >= 0 && otp5 <= 9) {
+              otp6ref.current.focus()
+            }
+          }}
+          ref={otp5ref}
+        />
+        <TextInput
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.box}
+          onChangeText={text => setOtp6(text)}
+          ref={otp6ref}
+        />
       </View>
 
       <View style={styles.smMedBox}>
@@ -235,7 +229,7 @@ export default function VerifyPage({ navigation, route }) {
         >
           Verify
         </Button>
-        
+
         {/* </View> */}
       </View>
     </View>
@@ -286,23 +280,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignContent: 'center'
   },
-  toast:{
+  toast: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: "#888888",
+    backgroundColor: '#888888',
     padding: 8
   },
   img: {
     // width: 400,
     // height: 400,
-    height: windowWidth ,
-    width: windowWidth ,
+    height: windowWidth,
+    width: windowWidth,
     resizeMode: 'contain',
     flex: 0.7,
     margin: 10,
     // backgroundColor: 'blue',
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   }
 })

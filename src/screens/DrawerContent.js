@@ -20,6 +20,8 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { AuthContext } from '../components/context'
 import { useSelector, useDispatch } from 'react-redux'
 import { userLogout } from '../actions/actions'
+import { LinearGradient } from 'expo-linear-gradient'
+
 
 export function DrawerContent ( props ) {
   const dispatch = useDispatch()

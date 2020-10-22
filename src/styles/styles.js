@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions, Platform } from 'react-native'
 export const windowWidth = Dimensions.get('window').width
 export const windowHeight = Dimensions.get('window').height
 export const opacity = 'rgba(0, 0, 0, .6)'
-export const {height} = Dimensions.get('screen')
+export const { height } = Dimensions.get('screen')
 export const height_logo = height * 0.28
 
 export const mainColor = {
@@ -10,7 +10,7 @@ export const mainColor = {
   second: '#cceabb',
   third: '#3f3f44',
   fourth: '#fdcb9e',
-  white: '#fff',
+  white: '#fff'
 }
 
 export const secondColor = {
@@ -25,20 +25,21 @@ export const styles = StyleSheet.create({
     backgroundColor: mainColor.first
   },
   header: {
-    flex: 1,
+    flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
     backgroundColor: '#fff',
     borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20
+    borderBottomRightRadius: 20,
+    marginBottom: 20,
+    height: 10,
+    justifyContent: 'space-around'
   },
   footer: {
-    flex: 4,
+    flex: 1,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 20,
-    paddingHorizontal: 30,
+    justifyContent: 'flex-start'
   },
   img: {
     width: 150,
@@ -47,14 +48,14 @@ export const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 30,
-    paddingVertical: 1,
+    paddingVertical: 1
   }
 })
 
 export const qrCodeStyle = StyleSheet.create({
   container: {
-    flex: 0.95,
-    backgroundColor: '#000',
+    flex: 1,
+    backgroundColor: '#000'
   }
 })
 
@@ -67,7 +68,7 @@ export const LoginScreenStyle = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   footer: {
     flex: 1,
@@ -76,13 +77,12 @@ export const LoginScreenStyle = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 30,
     marginBottom: 10,
-    marginHorizontal: 10,
-    
+    marginHorizontal: 10
   },
   text_header: {
     color: '#fff',
     fontSize: 35,
-    fontWeight: '600',
+    fontWeight: '600'
   },
   text_footer: {
     color: mainColor.third,
@@ -99,15 +99,15 @@ export const LoginScreenStyle = StyleSheet.create({
     alignItems: 'center'
   },
   textInput: {
-    flex:1,
+    flex: 1,
     marginTop: Platform.os === 'ios' ? 0 : -12,
     paddingBottom: 10,
     paddingTop: 10,
     paddingLeft: 10,
     color: '#666',
-    fontSize: 18,
+    fontSize: 18
   },
-  button:{
+  button: {
     alignItems: 'center',
     marginTop: 50
   },
@@ -126,34 +126,34 @@ export const LoginScreenStyle = StyleSheet.create({
 
 export const covidWidget = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 0.5,
     marginHorizontal: 10,
     borderRadius: 25,
-    backgroundColor: mainColor.white,
+    backgroundColor: mainColor.third,
     shadowColor: 'grey',
     shadowOpacity: 0.7,
-    shadowRadius: 0.2
+    shadowRadius: 0.2,
+    justifyContent: 'space-around'
   },
   titleContainer: {
     flex: 0.3,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 5,
-    fontSize: 16,
+    fontSize: 16
   },
   bodyContainer: {
-    flex: 0.7,
+    flex: 0.5,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    alignSelf: 'flex-end'
   },
   contentBox: {
     flex: 1,
-    width: windowWidth / 5,
-    height: windowWidth / 5,
+    height: windowWidth / 6,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    borderRadius: 25,
-    marginHorizontal: 5
+    borderRadius: 20
   }
 })

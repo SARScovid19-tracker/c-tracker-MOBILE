@@ -111,7 +111,7 @@ export default function RegisterPage({ navigation }) {
     <View style={styles.container}>
       <Toast visible={visibleToast} message="Succesfully Registered" />
       <LinearGradient
-        colors={['#a8e063', '#56ab2f']}
+        colors={['#8DC26F', '#76b852']}
         style={{
           position: 'absolute',
           left: 0,

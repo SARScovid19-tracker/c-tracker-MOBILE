@@ -28,10 +28,10 @@ export default function CheckInHistory () {
           !loading && restaurants.length > 0 ? restaurants.map((each, i) => (
             <View style={card.CardContainer} key={i}>
               <View style={card.CardTitle}>
-                <Text>{each.Restaurant.name}</Text>
+                <Text style={{ textTransform: 'capitalize', fontSize: 15 }}>{each.Restaurant.name}</Text>
               </View>
               <View style={card.CardBody}>
-                <Text>location: {each.Restaurant.address}</Text>
+                <Text style={{ textTransform: 'capitalize' }}>Location: {each.Restaurant.address}</Text>
                 <Time time={each.createdAt} />
               </View>
             </View>
@@ -48,20 +48,27 @@ const card = StyleSheet.create({
     minHeight: windowHeight / 7,
     marginVertical: 3,
     marginHorizontal: 5,
-    backgroundColor: mainColor.white,
     alignSelf: "stretch",
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    // paddingHorizontal: 10,
+    // paddingVertical: 5,
     shadowRadius: 1
   },
   CardTitle: {
     flex: 1,
     borderBottomWidth: 1,
-    borderBottomColor: '#000'
+    borderBottomColor: '#000',
+    backgroundColor: mainColor.fourth,
+    justifyContent: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingHorizontal: 10
   },
   CardBody: {
     flex: 2,
-    justifyContent: 'space-around'
+    paddingHorizontal: 10,
+    justifyContent: 'space-evenly',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    backgroundColor: mainColor.white
   }
 })

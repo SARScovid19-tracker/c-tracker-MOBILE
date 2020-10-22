@@ -24,7 +24,7 @@ export default function QrCodeScanner ({ navigation }) {
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    console.log(JSON.parse(data))
+    // console.log(JSON.parse(data))
     scannedData = JSON.parse(data)
     // todo => tunggi rifky selesai generate QR Code
     switch(scannedData.type) {
@@ -65,6 +65,7 @@ export default function QrCodeScanner ({ navigation }) {
         style={[StyleSheet.absoluteFill,qrCodeStyle.container]}
         type={'back'}
         barCodeTypes={'qr'}
+        focusable={true}
       />}
       <View style={{
         flex: 1,

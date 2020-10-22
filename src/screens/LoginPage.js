@@ -60,14 +60,14 @@ export default function LoginPage({ navigation }) {
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
-      console.log('listening notification')
+      // console.log('listening notification')
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
     });
     return () => {
-      console.log('notificationlistener')
+      // console.log('notificationlistener')
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
     };
@@ -100,10 +100,10 @@ export default function LoginPage({ navigation }) {
       .then(function (response) {
         setSubmitLoginLoading(false)
         setvisibleToast(true)
-        console.log('masuk login axios client >>>>>>>>>>>>>>>>>>')
+        // console.log('masuk login axios client >>>>>>>>>>>>>>>>>>')
         toVerify()
         // navigation.navigate('VerifyPage')
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
         setSubmitLoginLoading(false)
@@ -115,7 +115,7 @@ export default function LoginPage({ navigation }) {
   }
 
   function toVerify(){
-    console.log('funct toverify triggred')
+    // console.log('funct toverify triggred')
     navigation.navigate('VerifyPage',{
       params: { mobile:mobile, expoPushToken: expoPushToken}
     })
@@ -132,8 +132,18 @@ export default function LoginPage({ navigation }) {
   return (
     <View style={LoginScreenStyle.container}>
       <Toast visible={visibleToast} message="Check your otp sms" />
-      <LinearGradient
+      {/* <LinearGradient
         colors={['#a8e063', '#56ab2f']}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: windowHeight,
+        }}
+      /> */}
+      <LinearGradient
+        colors={['#8DC26F', '#76b852']}
         style={{
           position: 'absolute',
           left: 0,
@@ -218,7 +228,7 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
+    // console.log(token);
   } else {
     alert('Must use physical device for Push Notifications');
   }

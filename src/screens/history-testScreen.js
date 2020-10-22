@@ -27,12 +27,12 @@ export default function CovidTestHistory () {
           !loading && hospitals.length > 0 ? hospitals.map(each => (
             <View style={card.CardContainer} key={each.id}>
               <View style={card.CardTitle}>
-                <Text>{each.Hospital.name}</Text>
+                <Text style={{ textTransform: 'capitalize', fontSize: 15 }}>{each.Hospital.name}</Text>
               </View>
               <View style={card.CardBody}>
-                <Text>{each.testingType} Test</Text>
-                <Text>Status: {each.isWaitingResult ? 'waiting result' : each.User.status}</Text>
-                <Text>Location: {each.Hospital.address}</Text>
+                <Text style={{ textTransform: 'capitalize' }}>{each.testingType} Test</Text>
+                <Text style={{ textTransform: 'capitalize' }}>Status: {each.isWaitingResult ? 'waiting result' : each.User.status}</Text>
+                <Text style={{ textTransform: 'capitalize' }}>Location: {each.Hospital.address}</Text>
                 <Time time={each.createdAt} />
               </View>
             </View>
@@ -49,20 +49,29 @@ const card = StyleSheet.create({
     minHeight: windowHeight / 7,
     marginVertical: 3,
     marginHorizontal: 5,
-    backgroundColor: mainColor.white,
     alignSelf: "stretch",
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    // paddingHorizontal: 10,
+    // paddingVertical: 5,
     shadowRadius: 1
   },
   CardTitle: {
     flex: 1,
     borderBottomWidth: 1,
-    borderBottomColor: '#f2f2f2',
-    paddingVertical: 5
+    borderBottomColor: '#000',
+    backgroundColor: mainColor.second,
+    justifyContent: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 7
   },
   CardBody: {
     flex: 2,
+    paddingHorizontal: 10,
+    justifyContent: 'space-evenly',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    backgroundColor: mainColor.white,
+    paddingVertical: 7
   }
 })
