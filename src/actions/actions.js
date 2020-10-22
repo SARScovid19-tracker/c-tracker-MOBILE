@@ -35,13 +35,13 @@ export const fetchOneUser = (id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: 'USER_LOADING' })
-      const result = await axios ({
+      const result = await axiosInstance ({
         url: '/user/' + id,
         method: 'GET'
       })
-      dispatch({ type: 'USER_FETCH', payload: result.data })
+      dispatch({ type: 'USER_FETCH', payload: result.data.user })
     } catch (error) {
-      console.log(error.response)
+      console.log(error)
       dispatch({ type: 'USER_ERROR', payload: error })
     }
   }

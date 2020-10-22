@@ -59,7 +59,7 @@ export default function HomePage({ route, navigation }) {
     // else {
     //   phoneNumber = 'telprompt:${1234567890}';
     // }
-
+    alert('test')
     Linking.openURL(phoneNumber)
   }
 
@@ -125,9 +125,9 @@ export default function HomePage({ route, navigation }) {
                 marginTop: 10,
                 top: 0,
                 right: 0,
-                backgroundColor: 'orange'
+                backgroundColor: 'orange',
+                zIndex:2
               }}
-              large={true}
               color="black"
               backgroundColor={mainColor.third}
               icon={'alarm-light'}
