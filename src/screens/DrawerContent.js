@@ -20,6 +20,8 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { AuthContext } from '../components/context'
 import { useSelector, useDispatch } from 'react-redux'
 import { userLogout } from '../actions/actions'
+import { LinearGradient } from 'expo-linear-gradient'
+
 
 export function DrawerContent ( props ) {
   const dispatch = useDispatch()
@@ -61,7 +63,7 @@ export function DrawerContent ( props ) {
                 size={50}
               />
               <View style={{ marginLeft: 15 , flexDirection: 'column', fontSize: 16}}>
-                <Text style={styles.title}>{(name && name).toUpperCase()}</Text>
+                <Text style={{...styles.title, textTransform: 'capitalize'}}>{name && name}</Text>
                 <Caption style={styles.caption}>{isEmailVerify ? 'verified' : ''}</Caption>
               </View>
             </View>

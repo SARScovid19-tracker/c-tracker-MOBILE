@@ -14,10 +14,13 @@ import {
 import { Button } from 'react-native-paper'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Feather from '@expo/vector-icons/Feather'
-import { LoginScreenStyle, mainColor, secondColor, windowWidth } from '../styles/styles'
+import { LoginScreenStyle, mainColor, secondColor, windowWidth, windowHeight } from '../styles/styles'
 import axios from '../config/axios'
 import qs from 'qs'
 import Constants from "expo-constants";
+import { LinearGradient } from 'expo-linear-gradient'
+import * as Animatable from 'react-native-animatable'
+
 
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -40,9 +43,10 @@ export default function RegisterPage({ navigation }) {
   const [nik, setNik] = useState(0)
   const [submitLoginLoading, setSubmitLoginLoading] = useState(false)
   const [visibleToast, setvisibleToast] = useState(false);
+  const [loading, setLoading] = useState(false)
 
- useEffect(() => setvisibleToast(false), [visibleToast]);
-  
+  useEffect(() => setvisibleToast(false), [visibleToast]);
+
   async function submitRegister() {
     setSubmitLoginLoading(true)
     let mobile = ''
@@ -75,8 +79,10 @@ export default function RegisterPage({ navigation }) {
           toLogin()
           // Alert.alert('Please verify your email')
           console.log(`RESP: ${res.data}`)
+          setLoading(false)
         })
         .catch(function (error) {
+          setLoading(false)
           setSubmitLoginLoading(false)
           Alert.alert(error.response.data.errors)
           console.log(`ERR: ${error.response.data.errors},>>>>>>>>>>>>>> register err axuos`)
@@ -103,13 +109,25 @@ export default function RegisterPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-         <Toast  visible={visibleToast} message="Succesfully Registered, please verify your email!" />
-      <View style={styles.header}>
+      {/* <Toast visible={visibleToast} message="Succesfully Registered" /> */}
+      <LinearGradient
+        colors={['#8DC26F', '#76b852']}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: windowHeight,
+        }}
+      />
+      <Toast  visible={visibleToast} message="Succesfully Registered, please verify your email!" />
+      <Animatable.View style={styles.header} animation="bounceIn">
         <Image
+          animation="bounceIn"
           style={styles.img}
           source={require('../assets/logo-removebg-preview-trimmed.png')}
         />
-      </View>
+      </Animatable.View>
       <View style={styles.footer}>
         <Text style={styles.text_footer}>Name</Text>
         <View style={styles.action}>
@@ -174,18 +192,28 @@ export default function RegisterPage({ navigation }) {
           />
         </View>
 
-        <View style={{ alignSelf: 'auto', flex: 1, justifyContent: 'center' }}>
+        <View style={{ alignSelf: 'auto', flex: 1, justifyContent: 'flex-end', marginBottom: 10 }}>
           <Button
             icon="page-next"
             title="Register"
             mode="contained"
             dark={false}
-            style={{ borderRadius: 30 }}
-            loading={submitLoginLoading}
-            color={mainColor.second}
+            style={{ borderRadius: 30, marginBottom: 10 }}
+            color="#a8e063"
             onPress={event => submitRegister(event)}
+            loading={submitLoginLoading}
           >
-            Submit
+            Register
+          </Button>
+          <Button
+            title="Login"
+            mode="outlined"
+            dark={false}
+            style={{ borderRadius: 30 }}
+            color="#a8e063"
+            onPress={event => navigation.goBack()}
+          >
+            Back to Login
           </Button>
         </View>
       </View>
@@ -207,10 +235,13 @@ export const styles = StyleSheet.create({
   footer: {
     flex: 4,
     backgroundColor: mainColor.first,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingVertical: 20,
+    borderRadius: 30,
+    paddingVertical: 10,
     paddingHorizontal: 30,
+    margin: 10,
+    justifyContent: 'flex-end',
+    alignItems: 'stretch',
+    paddingTop: 20
   },
   text_header: {
     color: '#fff',
@@ -255,8 +286,9 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   img: {
-    width: windowWidth / 2,
+    width: windowWidth / 1.5,
     resizeMode: 'contain',
+    marginRight: 12
   },
   toast:{
     flex: 1,

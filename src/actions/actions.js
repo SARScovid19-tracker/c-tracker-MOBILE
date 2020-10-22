@@ -31,6 +31,22 @@ export const userLogout = phone => {
   }
 }
 
+export const fetchOneUser = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: 'USER_LOADING' })
+      const result = await axiosInstance ({
+        url: '/user/' + id,
+        method: 'GET'
+      })
+      dispatch({ type: 'USER_FETCH', payload: result.data.user })
+    } catch (error) {
+      console.log(error.response)
+      dispatch({ type: 'USER_ERROR', payload: error })
+    }
+  }
+}
+
 export const fetchDataCovid = payload => {
   return {
     type: FETCH_DATA_COVID,
@@ -45,7 +61,7 @@ export function getDataCovid() {
       url: 'https://apicovid19indonesia-v2.vercel.app/api/indonesia/more'
     })
       .then(({ data }) => {
-        console.log(data.penambahan, '>>>>>>>>>>>>>>> result action')
+        // console.log(data.penambahan, '>>>>>>>>>>>>>>> result action')
         dispatch(fetchDataCovid(data.penambahan))
       })
       .catch(err => {
