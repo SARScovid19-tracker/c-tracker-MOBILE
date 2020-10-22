@@ -41,7 +41,7 @@ export const fetchOneUser = (id) => {
       })
       dispatch({ type: 'USER_FETCH', payload: result.data.user })
     } catch (error) {
-      console.log(error.response)
+      console.log(error)
       dispatch({ type: 'USER_ERROR', payload: error })
     }
   }

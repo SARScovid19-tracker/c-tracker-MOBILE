@@ -60,6 +60,9 @@ export default function HomePage({ route, navigation }) {
     if (Platform.OS === 'android') {
       phoneNumber = 'tel:${119}'
     }
+    // else {
+    //   phoneNumber = 'telprompt:${1234567890}';
+    // }
     Linking.openURL(phoneNumber)
   }
 
@@ -119,25 +122,21 @@ export default function HomePage({ route, navigation }) {
             </TouchableOpacity>
           </View> */}
           <View style={covidWidget.container}>
-            {/* <TouchableOpacity  style={styles2.button}  activeOpacity={0.7} onPress={() => dialCall()} > */}
-              <FAB
-               
-                style={{
-                  position: 'absolute',
-                  marginRight: 10,
-                  marginTop: 10,
-                  top: 0,
-                  right: 0,
-                  backgroundColor: 'orange'
-                }}
-                large={true}
-                color="black"
-                backgroundColor={mainColor.third}
-                icon={'alarm-light'}
-                onPress={() => dialCall()}
-              />
-                {/* <Text style={styles2.TextStyle}>🏥 Emergency Call</Text>
-            </TouchableOpacity> */}
+            <FAB
+              style={{
+                position: 'absolute',
+                marginRight: 10,
+                marginTop: 10,
+                top: 0,
+                right: 0,
+                backgroundColor: 'orange',
+                zIndex:2
+              }}
+              color="black"
+              backgroundColor={mainColor.third}
+              icon={'alarm-light'}
+              onPress={() => dialCall()}
+            />
             <View style={covidWidget.titleContainer}>
               <Text style={{ fontSize: 22, color: '#fff' }}>Data Covid-19</Text>
               <Text style={{ color: '#f4f4f4' }}>
